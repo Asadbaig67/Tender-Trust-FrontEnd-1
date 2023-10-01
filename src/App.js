@@ -4,6 +4,7 @@ import { FiSettings } from "react-icons/fi";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
 import { Navbar, Footer, Sidebar, ThemeSettings } from "./components";
+import Tender from './components/Tender';
 import Dashboard from "./components/Dashboardd";
 import {
   Ecommerce,
@@ -92,6 +93,8 @@ const App = () => {
                 <Route path="/orders" element={<Orders />} />
                 <Route path="/employees" element={<Employees />} />
                 <Route path="/customers" element={<Customers />} />
+                <Route path="/alltenders" element={<Tender />} />
+
 
                 {/* apps  */}
                 {/* <Route path="/kanban" element={<Kanban />} />

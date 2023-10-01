@@ -645,10 +645,12 @@ export const Tenderdata = [
     links: [
       {
         name: 'All Tenders',
+        link:'alltenders',
         icon: <FiShoppingBag />,
       },
       {
         name: 'Active Tenders',
+        link:"alltenders",
         icon: <FiShoppingBag />,
       },
       {
