@@ -4,6 +4,8 @@ import { FiSettings } from "react-icons/fi";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
 import { Navbar, Footer, Sidebar, ThemeSettings } from "./components";
+import Wallet from './components/Wallet';
+import CreateTender from "./pages/CreateTender";
 import Tender from './components/Tender';
 import Dashboard from "./components/Dashboardd";
 import {
@@ -94,6 +96,8 @@ const App = () => {
                 <Route path="/employees" element={<Employees />} />
                 <Route path="/customers" element={<Customers />} />
                 <Route path="/alltenders" element={<Tender />} />
+                <Route path="/create" element={<CreateTender />} />
+                <Route path="/wallet" element={<Wallet />} />
 
 
                 {/* apps  */}
