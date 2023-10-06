@@ -20,7 +20,7 @@ const Wallet = () => {
         console.log(web3);
         console.log(contract);
         console.log(accounts[0]);
-        // navigateTo("/");
+        navigateTo("/home");
       } else {
         throw new Error();
       }

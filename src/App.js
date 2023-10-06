@@ -2,12 +2,15 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
-
 import { Navbar, Footer, Sidebar, ThemeSettings } from "./components";
 import Wallet from './components/Wallet';
 import CreateTender from "./pages/CreateTender";
+import Assign_task from "./components/Assign_task";
 import Tender from './components/Tender';
 import Dashboard from "./components/Dashboardd";
+import Bid from "./components/Bid";
+import 'rsuite/dist/rsuite.min.css';
+
 import {
   Ecommerce,
   Orders,
@@ -65,11 +68,11 @@ const App = () => {
           </div>
           {activeMenu ? (
             <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
-              <Sidebar />
+              {/* <Sidebar /> */}
             </div>
           ) : (
             <div className="w-0 dark:bg-secondary-dark-bg">
-              <Sidebar />
+              {/* <Sidebar /> */}
             </div>
           )}
           <div
@@ -87,7 +90,7 @@ const App = () => {
 
               <Routes>
                 {/* dashboard  */}
-                <Route path="/" element={<Ecommerce />} />
+                <Route path="/home" element={<Ecommerce />} />
                 <Route path="/ecommerce" element={<Ecommerce />} />
                 <Route path="/dashboard" element={<Dashboard />} />
 
@@ -96,8 +99,11 @@ const App = () => {
                 <Route path="/employees" element={<Employees />} />
                 <Route path="/customers" element={<Customers />} />
                 <Route path="/alltenders" element={<Tender />} />
+                <Route path="/activetenders" element={<Tender />} />
                 <Route path="/create" element={<CreateTender />} />
-                <Route path="/wallet" element={<Wallet />} />
+                <Route path="/assigntask" element={<Assign_task />} />
+                <Route path="/bid" element={<Bid />} />
+                <Route path="/" element={<Wallet />} />
 
 
                 {/* apps  */}

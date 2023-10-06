@@ -650,7 +650,7 @@ export const Tenderdata = [
       },
       {
         name: 'Active Tenders',
-        link:"alltenders",
+        link:"activetenders",
         icon: <FiShoppingBag />,
       },
       {
@@ -659,10 +659,12 @@ export const Tenderdata = [
       },
       {
         name: 'Assign Task',
+        link:'assigntask',
         icon: <FiShoppingBag />,
       },
       {
         name: 'Create Tender',
+        link:'create',
         icon: <FiShoppingBag />,
       },
     ],
@@ -676,6 +678,7 @@ export const Tenderdata = [
       },
       {
         name: 'Place Bid',
+        link:'bid',
         icon: <FiShoppingBag />,
       },
       {
