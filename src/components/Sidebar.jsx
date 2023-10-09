@@ -1,14 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { SiShopware } from "react-icons/si";
 import { MdOutlineCancel } from "react-icons/md";
-import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
-import { links } from "../data/dummy";
-import { Userdata, Tenderdata } from "../data/dummy";
+import { Tenderdata } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
 
 const Sidebar = () => {
+  const isPublicValue = useSelector((state) => state.isPublic.isPublic);
   const { currentColor, activeMenu, setActiveMenu, screenSize } =
     useStateContext();
 
@@ -35,16 +35,14 @@ const Sidebar = () => {
             >
               <SiShopware /> <span>Tender Trust</span>
             </Link>
-            <TooltipComponent content="Menu" position="BottomCenter">
-              <button
-                type="button"
-                onClick={() => setActiveMenu(!activeMenu)}
-                style={{ color: currentColor }}
-                className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden"
-              >
-                <MdOutlineCancel />
-              </button>
-            </TooltipComponent>
+            <button
+              type="button"
+              onClick={() => setActiveMenu(!activeMenu)}
+              style={{ color: currentColor }}
+              className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden"
+            >
+              <MdOutlineCancel />
+            </button>
           </div>
           <div className="mt-10 ">
             {Tenderdata.map((item) => (
@@ -70,29 +68,6 @@ const Sidebar = () => {
                 ))}
               </div>
             ))}
-            {/* {links.map((item) => (
-              <div key={item.title}>
-                <p className="text-gray-400 dark:text-gray-400 m-3 mt-4 uppercase">
-                  {item.title}
-                </p>
-                {item.links.map((link) => (
-                  <NavLink
-                    to={`/${link.name}`}
-                    key={link.name}
-                    onClick={handleCloseSideBar}
-                    style={({ isActive }) => ({
-                      backgroundColor: isActive ? currentColor : "",
-                    })}
-                    className={({ isActive }) =>
-                      isActive ? activeLink : normalLink
-                    }
-                  >
-                    {link.icon}
-                    <span className="capitalize ">{link.name}</span>
-                  </NavLink>
-                ))}
-              </div>
-            ))} */}
           </div>
         </>
       )}
