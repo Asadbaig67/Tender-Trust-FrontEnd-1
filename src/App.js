@@ -10,6 +10,7 @@ import Tender from './components/Tender';
 import Dashboard from "./components/Dashboardd";
 import Test from "./components/Test";
 import Bid from "./components/Bid";
+import Login from "./components/Login";
 import 'rsuite/dist/rsuite.min.css';
 
 import "./App.css";
@@ -85,6 +86,7 @@ const App = () => {
                 <Route path="/bid" element={<Bid />} />
                 <Route path="/" element={<Wallet />} />
                 <Route path="/test" element={<Test />} />
+                <Route path="/login" element={<Login />} />
 
               </Routes>
             </div>
