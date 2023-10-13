@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AssignTender = () => {
+const BidTender = () => {
     return (
         <div class="grid grid-cols-3 gap-4">
             
@@ -20,7 +20,7 @@ In recent years, the pace of technological
                 </div>
                 <div class="col-span-1">
                     <button class="rounded-md bg-slate-300 hover:bg-slate-600 hover:text-slate-200 duration-300 p-2">
-                    <button>Assign Tender</button>
+                    <button><h5>Bid</h5></button>
                     </button>
                 </div>
 
@@ -41,7 +41,7 @@ In recent years, the pace of technological
                 </div>
                 <div class="col-span-1">
                 <button class="rounded-md bg-slate-300 hover:bg-slate-600 hover:text-slate-200 duration-300 p-2">
-                    <button>Assign Tender</button>
+                    <button><h5>Bid</h5></button>
                     </button>
                 </div>
 
@@ -64,8 +64,8 @@ In recent years, the pace of technological
 In recent years, the pace of technological 
                 </div>
                 <div class="col-span-1">
-                    <button class="rounded-md bg-slate-300 hover:bg-slate-600 hover:text-slate-200 duration-300 p-2">
-                    <button>Assign Tender</button>
+                    <button class="rounded-lg bg-slate-300 hover:bg-slate-600 hover:text-slate-200 duration-300 p-2">
+                    <button><h5>Bid</h5></button>
                     </button>
                 </div>
 
@@ -76,5 +76,4 @@ In recent years, the pace of technological
 
     )
 }
-
-export default AssignTender
+export default BidTender
