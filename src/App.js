@@ -11,7 +11,7 @@ import Dashboard from "./components/Dashboardd";
 import Test from "./components/Test";
 import Bid from "./components/Bid";
 import Login from "./components/Login";
-import 'rsuite/dist/rsuite.min.css';
+// import 'rsuite/dist/rsuite.min.css';
 
 import "./App.css";
 
