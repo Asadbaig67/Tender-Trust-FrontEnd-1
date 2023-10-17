@@ -11,8 +11,12 @@ import Dashboard from "./components/Dashboardd";
 import Test from "./components/Test";
 import Bid from "./components/Bid";
 import Login from "./components/Login";
+import AllTendersDisplay from "./components/AllTendersDisplay";
 import 'rsuite/dist/rsuite.min.css';
-
+import GovernmentAttributes from "./components/GovernmentAttributes";
+import SingleTenderView from "./components/SingleTenderView";
+import AssignTender from "./components/AssignTender";
+import  BidTender from "./components/BidTender";
 import "./App.css";
 
 import { useStateContext } from "./contexts/ContextProvider";
@@ -87,6 +91,11 @@ const App = () => {
                 <Route path="/" element={<Wallet />} />
                 <Route path="/test" element={<Test />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/alltenderdisplay" element={<AllTendersDisplay/>} />
+                <Route path="/governmentattributes" element={<GovernmentAttributes/>} />
+                <Route path="/singletenderview" element={<SingleTenderView/>} />
+                <Route path="/assigntender" element={<AssignTender/>} />
+                <Route path="/bidtender" element={<BidTender/>} />
 
               </Routes>
             </div>
