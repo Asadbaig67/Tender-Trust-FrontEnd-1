@@ -24,7 +24,7 @@ const Wallet = () => {
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
-        const contractAddress = "0x8b4b5e18C6323c4Fc404f2C4036482F4d0147747";
+        const contractAddress = "0x714225eF1F1575D0Ed17B108869413E38656B475";
         const contract = new web3.eth.Contract(ABI, contractAddress);
         // saveState({ web3: web3, contract: contract, account: accounts[0] });
         console.log(web3);
