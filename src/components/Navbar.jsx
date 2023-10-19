@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { FiShoppingCart } from "react-icons/fi";
 import { BsChatLeft } from "react-icons/bs";
+import { SiShopware } from "react-icons/si";
 import { RiNotification3Line } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { Link, NavLink } from "react-router-dom";
@@ -9,7 +10,8 @@ import { Link, NavLink } from "react-router-dom";
 import avatar from "../data/avatar.jpg";
 import { Cart, Chat, Notification, UserProfile } from ".";
 import { useStateContext } from "../contexts/ContextProvider";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setUserProfile } from "../Toolkit/Slices/booleanSlice";
 
 const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
   <button
@@ -27,7 +29,11 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
 );
 
 const Navbar = () => {
-  const isPublic = useSelector((state) => state.isPublic.isPublic);
+  const dispatch = useDispatch();
+
+  // State Variables
+  const isPublic = useSelector((state) => state.bool.isPublic);
+  const user = useSelector((state) => state.bool.userProfile);
 
   const {
     currentColor,
@@ -38,8 +44,6 @@ const Navbar = () => {
     setScreenSize,
     screenSize,
   } = useStateContext();
-
-  console.log("screenSize", screenSize);
 
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);
@@ -64,7 +68,12 @@ const Navbar = () => {
   return (
     <div className="flex justify-between p-2 md:ml-6 md:mr-6 relative">
       {isPublic ? (
-        <h3>Tender Trust</h3>
+        <Link
+          to="/"
+          className="items-center gap-3 ml-3 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900"
+        >
+          <SiShopware /> <span>Tender Trust</span>
+        </Link>
       ) : (
         <NavButton
           title="Menu"
@@ -73,51 +82,68 @@ const Navbar = () => {
           icon={<AiOutlineMenu />}
         />
       )}
-      <ul class="flex flex-row">
-        <h4 className="mx-3">
-          <NavLink class="text-gray-200" to="/tenders">
-            Tenders
-          </NavLink>
-        </h4>
-        <h4 className="mx-3">
-          <NavLink to="/tender-insights" class="text-gray-200" href="#">
-            Tender Insights
-          </NavLink>
-        </h4>
-        <h4 className="mx-3">
-          <NavLink to="/tender-status" class="text-gray-200" href="#">
-            Tender Status
-          </NavLink>
-        </h4>
-      </ul>
+      {isPublic ? (
+        <ul class="flex flex-row my-auto">
+          <h4 className="mx-4">
+            <Link
+              class="items-center mx-4 flex text-xl tracking-tight dark:text-white text-slate-900"
+              to="/"
+            >
+              Tenders
+            </Link>
+          </h4>
+          <h4 className="mx-4">
+            <Link
+              to="/tender-insights"
+              class="items-center mx-4  flex text-xl tracking-tight dark:text-white text-slate-900"
+              href="#"
+            >
+              Tender Insights
+            </Link>
+          </h4>
+          <h4 className="mx-4">
+            <Link
+              to="/tender-status"
+              class="items-center mx-4 flex text-xl tracking-tight dark:text-white text-slate-900"
+              href="#"
+            >
+              Tender Status
+            </Link>
+          </h4>
+        </ul>
+      ) : (
+        ""
+      )}
+
       <div className="flex">
-        <NavButton
+        {/* <NavButton
           title="Notification"
           dotColor="rgb(254, 201, 15)"
           customFunc={() => handleClick("notification")}
           color={currentColor}
           icon={<RiNotification3Line />}
-        />
+        /> */}
         <div
           className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
-          onClick={() => handleClick("userProfile")}
+          onClick={() => dispatch(setUserProfile(!user))}
         >
           <img
             className="rounded-full w-8 h-8"
             src={avatar}
             alt="user-profile"
           />
-          <p>
+          {/* <p>
             <span className="text-gray-400 text-14">Hi,</span>{" "}
             <span className="text-gray-400 font-bold ml-1 text-14">User</span>
-          </p>
+          </p> */}
           <MdKeyboardArrowDown className="text-gray-400 text-14" />
         </div>
 
-        {isClicked.cart && <Cart />}
+        {/* {isClicked.cart && <Cart />}
         {isClicked.chat && <Chat />}
-        {isClicked.notification && <Notification />}
-        {isClicked.userProfile && <UserProfile />}
+        {isClicked.notification && <Notification />} */}
+        {/* {isClicked.userProfile && <UserProfile />} */}
+        {user && <UserProfile />}
       </div>
     </div>
   );

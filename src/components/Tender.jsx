@@ -5,10 +5,10 @@ import { useStateContext } from "../contexts/ContextProvider";
 import Button from "./Button";
 import product9 from "../data/product9.jpg";
 
-const Tender = () => {
+const Tender = ({ title, author, description }) => {
   const { currentColor, currentMode } = useStateContext();
   return (
-    <div className="w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 m-3">
+    <div className="w-auto mx-3 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 m-3">
       <div className="flex justify-between">
         <p className="text-xl font-semibold">Tender</p>
         <button type="button" className="text-xl font-semibold text-gray-500">
@@ -18,13 +18,9 @@ const Tender = () => {
       <div className="mt-10">
         {/* <img className="md:w-96 h-50 " src={product9} alt="" /> */}
         <div className="mt-8">
-          <p className="font-semibold text-lg">Internet Wiring in WapdaTown!</p>
-          <p className="text-gray-400 ">By Afzal Khokhar MNA</p>
-          <p className="mt-8 text-sm text-gray-400">
-            This will be the small description for the news you have shown here.
-            There could be some great info. Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Soluta, adipisci sequi?
-          </p>
+          <p className="font-semibold text-lg">{title}</p>
+          <p className="text-gray-400 ">{author}</p>
+          <p className="mt-8 text-sm text-gray-400">{description}</p>
           <div className="mt-3">
             <Button
               color="white"

@@ -12,18 +12,20 @@ import Test from "./components/Test";
 import Bid from "./components/Bid";
 import Login from "./components/Login";
 import AllTendersDisplay from "./components/AllTendersDisplay";
-import 'rsuite/dist/rsuite.min.css';
+import Public_tenders from "./pages/Public_tenders";
+import Signup from "./components/Signup";
+// import 'rsuite/dist/rsuite.min.css';
 import GovernmentAttributes from "./components/GovernmentAttributes";
 import SingleTenderView from "./components/SingleTenderView";
 import AssignTender from "./components/AssignTender";
-import  BidTender from "./components/BidTender";
+import BidTender from "./components/BidTender";
 import "./App.css";
 
 import { useStateContext } from "./contexts/ContextProvider";
 
 const App = () => {
   // const [isPublic, setIsPublic] = React.useState(true);
-  const isPublicValue = useSelector((state) => state.isPublic.isPublic);
+  const isPublicValue = useSelector((state) => state.bool.isPublic);
   const {
     setCurrentColor,
     setCurrentMode,
@@ -33,6 +35,9 @@ const App = () => {
     themeSettings,
     setThemeSettings,
   } = useStateContext();
+
+  const authUser = useSelector((state) => state.user.authUser);
+  console.log("authUser", authUser);
 
   useEffect(() => {
     const currentThemeColor = localStorage.getItem("colorMode");
@@ -88,14 +93,18 @@ const App = () => {
                 <Route path="/create" element={<CreateTender />} />
                 <Route path="/assigntask" element={<Assign_task />} />
                 <Route path="/bid" element={<Bid />} />
-                <Route path="/" element={<Wallet />} />
+                <Route path="/wallet" element={<Wallet />} />
                 <Route path="/test" element={<Test />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/alltenderdisplay" element={<AllTendersDisplay/>} />
-                <Route path="/governmentattributes" element={<GovernmentAttributes/>} />
-                <Route path="/singletenderview" element={<SingleTenderView/>} />
-                <Route path="/assigntender" element={<AssignTender/>} />
-                <Route path="/bidtender" element={<BidTender/>} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/alltenderdisplay" element={<AllTendersDisplay />} />
+                <Route path="/governmentattributes" element={<GovernmentAttributes />} />
+                <Route path="/singletenderview" element={<SingleTenderView />} />
+                <Route path="/assigntender" element={<AssignTender />} />
+                <Route path="/bidtender" element={<BidTender />} />
+
+                {/* {ALL PUBLIC ROUTES ARE BELLOW} */}
+                <Route path="/" element={<Public_tenders />} />
 
               </Routes>
             </div>

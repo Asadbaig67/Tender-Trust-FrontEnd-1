@@ -1,29 +1,28 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../Toolkit/Slices/authUserSlice";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useStateContext } from "../contexts/ContextProvider";
-import { loginUser } from "../Toolkit/Slices/authUserSlice";
+import { signUpUser } from "../Toolkit/Slices/authUserSlice";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import axios from "axios";
 
-const Login = () => {
-  const { currentColor } = useStateContext();
+const Signup = () => {
   const dispatch = useDispatch();
+  const { currentColor } = useStateContext();
 
-  const [loginData, setLoginData] = useState({
+  const [signUpData, setSignUpData] = useState({
+    name: "",
     email: "",
     password: "",
   });
 
-  const handleChange = (e) => {
-    setLoginData({ ...loginData, [e.target.name]: e.target.value });
+  const handledataChange = (e) => {
+    setSignUpData({ ...signUpData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      dispatch(loginUser(loginData));
+      dispatch(signUpUser(signUpData));
     } catch (error) {
       console.error("An error occurred: " + error.message);
     }
@@ -45,16 +44,29 @@ const Login = () => {
       >
         <div class="w-full h-100">
           <h1 class="text-xl md:text-2xl font-bold leading-tight mt-12">
-            Log in to your account
+            Sign-up to create your account
           </h1>
 
-          <form class="mt-6" action="#" method="POST">
+          <form class="mt-6">
             <div>
+              <label class="block text-gray-700">Name</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter Name"
+                onChange={handledataChange}
+                class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                autofocus
+                autocomplete
+                required
+              />
+            </div>
+            <div className="mt-4">
               <label class="block text-gray-700">Email Address</label>
               <input
                 type="email"
                 name="email"
-                onChange={handleChange}
+                onChange={handledataChange}
                 placeholder="Enter Email Address"
                 class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                 autofocus
@@ -68,7 +80,7 @@ const Login = () => {
               <input
                 type="password"
                 name="password"
-                onChange={handleChange}
+                onChange={handledataChange}
                 placeholder="Enter Password"
                 minlength="6"
                 class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
@@ -88,24 +100,24 @@ const Login = () => {
 
             <button
               type="submit"
-              onClick={handleSubmit}
               class="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg
               px-4 py-3 mt-6"
+              onClick={handleSignUp}
               style={{ backgroundColor: currentColor }}
             >
-              Log In
+              Create Account
             </button>
           </form>
 
           <hr class="my-6 border-gray-300 w-full" />
 
           <p class="mt-8">
-            Need an account?{" "}
+            Alreadt have account?{" "}
             <Link
-              to="/signup"
+              to="/login"
               class="text-blue-500 hover:text-blue-700 font-semibold"
             >
-              Create an account
+              Login
             </Link>
           </p>
         </div>
@@ -114,4 +126,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

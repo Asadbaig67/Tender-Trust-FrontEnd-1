@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { counterSlice } from "./Slices/counterSlice";
-import { isPublicSlice } from "./Slices/isPublicSlice";
+import { booleanSlice } from "./Slices/booleanSlice";
+import { authUserSlice } from "./Slices/authUserSlice";
 
 export const store = configureStore({
   reducer: {
     counter: counterSlice.reducer,
-    isPublic: isPublicSlice.reducer,
+    bool: booleanSlice.reducer,
+    user: authUserSlice.reducer,
   },
 });
 
