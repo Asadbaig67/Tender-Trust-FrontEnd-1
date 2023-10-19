@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../Toolkit/Slices/authUserSlice";
 import { useStateContext } from "../contexts/ContextProvider";
 import { loginUser } from "../Toolkit/Slices/authUserSlice";
+import LoadingButton from "@mui/lab/LoadingButton";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import SaveIcon from "@mui/icons-material/Save";
+import SendIcon from "@mui/icons-material/Send";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { setpublic } from "../Toolkit/Slices/booleanSlice";
 
 const Login = () => {
   const { currentColor } = useStateContext();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const authUser = useSelector((state) => state.user.authUser);
+  console.log("authUser", authUser);
 
   const [loginData, setLoginData] = useState({
     email: "",
@@ -24,10 +35,19 @@ const Login = () => {
     e.preventDefault();
     try {
       dispatch(loginUser(loginData));
+      // dispatch(setpublic(false));
+      // navigate("/wallet");
     } catch (error) {
       console.error("An error occurred: " + error.message);
     }
   };
+
+  useEffect(() => {
+    if (authUser) {
+      navigate("/contractor/alltenders");
+      dispatch(setpublic(false));
+    }
+  }, [authUser]);
 
   return (
     <section class="flex flex-col md:flex-row items-center">

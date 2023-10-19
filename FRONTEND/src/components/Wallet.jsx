@@ -1,13 +1,20 @@
 import Web3 from "web3";
 import { useNavigate } from "react-router-dom";
+import { useDispatch,useSelector } from "react-redux";
 import { useStateContext } from "../contexts/ContextProvider";
 import metamask from "../data/metamask.svg";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+import { setMetaMaskCred } from "../Toolkit/Slices/Web3Slice";
 
 import ABI from "../ABI.json";
 
 const Wallet = () => {
+
+  const account = useSelector((state) => state.web3.account);
+  const contract = useSelector((state) => state.web3.contract);
+
+  const dispatch = useDispatch();
   const navigateTo = useNavigate();
   const { currentColor } = useStateContext();
 
@@ -26,11 +33,14 @@ const Wallet = () => {
         });
         const contractAddress = "0x714225eF1F1575D0Ed17B108869413E38656B475";
         const contract = new web3.eth.Contract(ABI, contractAddress);
-        // saveState({ web3: web3, contract: contract, account: accounts[0] });
-        console.log(web3);
-        console.log(contract);
-        console.log(accounts[0]);
-        navigateTo("/home");
+        dispatch(
+          setMetaMaskCred({
+            web3: web3,
+            contract: contract,
+            account: accounts[0],
+          })
+        );
+        navigateTo("/create");
       } else {
         throw new Error();
       }
@@ -38,6 +48,9 @@ const Wallet = () => {
       console.error(error);
     }
   };
+
+  console.log(account);
+  console.log(contract);
 
   return (
     <>

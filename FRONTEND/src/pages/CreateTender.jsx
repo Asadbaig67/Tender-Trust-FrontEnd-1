@@ -1,7 +1,78 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styles from "./CreateTender.module.css";
+import axios from "axios";
 
 const CreateTender = () => {
+  const account = useSelector((state) => state.web3.account);
+  const contract = useSelector((state) => state.web3.contract);
+
+  const [tender, setTender] = useState({
+    tenderName: "",
+    contractTitle: "",
+    startDate: "",
+    endDate: "",
+    description: "",
+    tenderNumber: "",
+  });
+
+  const handleChange = (e) => {
+    setTender({ ...tender, [e.target.name]: e.target.value });
+  };
+
+  const createTask = async (event) => {
+    event.preventDefault();
+
+    try {
+      const url = "http://localhost:5000/createTender";
+      const description = tender.description;
+
+      // const response = await axios.post(url, {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   params: {
+      //     description: JSON.stringify(description),
+      //   },
+      // });
+      const response = await axios.post(url);
+
+      if (response.status === 200) {
+        const responseData = response.data;
+        // Handle the responseData as needed
+        console.log(responseData);
+
+        if (contract && contract.methods) {
+          await contract.methods
+            .CreateTender(tender.description)
+            .send({ from: account });
+        }
+      } else {
+        alert("Task cannot be added");
+      }
+    } catch (error) {
+      // Handle errors here
+      console.error("There was a problem with the axios request:", error);
+    } finally {
+      console.log("finally");
+    }
+  };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   const response = await axios.post(
+  //     "http://localhost:5000/tendertrust/ethereum/createTender",
+  //     tender.description
+  //   );
+
+  //   console.log(response.data);
+  // };
+
+  console.log(tender);
+  console.log(account);
+  console.log(contract);
+
   return (
     <div>
       <form className={`mx-auto ${styles.form_container}`}>
@@ -30,7 +101,8 @@ const CreateTender = () => {
             </svg>
             <input
               title="Input title"
-              name="input-name"
+              name="tenderName"
+              onChange={handleChange}
               type="text"
               className={styles.input_field}
               id="email_field"
@@ -53,7 +125,8 @@ const CreateTender = () => {
             <input
               placeholder=""
               title="Input title"
-              name="input-name"
+              onChange={handleChange}
+              name="contractTitle"
               type="text"
               className={styles.input_field}
               id="password_field"
@@ -98,7 +171,8 @@ const CreateTender = () => {
             <input
               placeholder=""
               title="Input title"
-              name="input-name"
+              name="description"
+              onChange={handleChange}
               type="text"
               className={styles.input_field}
               id="password_field"
@@ -120,7 +194,7 @@ const CreateTender = () => {
             </svg>
             <input
               title="Input title"
-              name="input-name"
+              name="tenderNumber"
               type="text"
               className={styles.input_field}
               id="email_field"
@@ -151,7 +225,12 @@ const CreateTender = () => {
           </div>
         </div>
 
-        <button title="Sign In" type="submit" className={`mr-auto ${styles.sign_in_btn}`}>
+        <button
+          title="Sign In"
+          onClick={createTask}
+          type="submit"
+          className={`mr-auto ${styles.sign_in_btn}`}
+        >
           <span>Add Tender</span>
         </button>
 

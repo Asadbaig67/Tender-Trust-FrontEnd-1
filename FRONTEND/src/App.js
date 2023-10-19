@@ -36,14 +36,20 @@ const App = () => {
     setThemeSettings,
   } = useStateContext();
 
+
+  const title = "Public Park Renovation";
+  const author = "Jane Smith";
+  const description = "Renovation project for the local public park. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, adipisci sequi?";
+
+
   const authUser = useSelector((state) => state.user.authUser);
-  console.log("authUser", authUser);
 
   useEffect(() => {
     const currentThemeColor = localStorage.getItem("colorMode");
     const currentThemeMode = localStorage.getItem("themeMode");
     if (currentThemeColor && currentThemeMode) {
       setCurrentColor(currentThemeColor);
+      console.log("authUser", authUser);
       setCurrentMode(currentThemeMode);
     }
   }, []);
@@ -88,7 +94,7 @@ const App = () => {
               {themeSettings && <ThemeSettings />}
 
               <Routes>
-                <Route path="/alltenders" element={<Tender />} />
+                <Route path="/contractor/alltenders" element={<Tender title={title} author={author} description={description} />} />
                 <Route path="/activetenders" element={<Tender />} />
                 <Route path="/create" element={<CreateTender />} />
                 <Route path="/assigntask" element={<Assign_task />} />

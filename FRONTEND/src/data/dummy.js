@@ -738,6 +738,7 @@ export const Tenderdata = [
     links: [
       {
         name: 'All Tenders',
+        link:"contractor/alltenders",
         icon: <FiShoppingBag />,
       },
       {
@@ -747,31 +748,12 @@ export const Tenderdata = [
       },
       {
         name: 'Withdraw Tokens',
+        link: 'withdraw',
         icon: <FiShoppingBag />,
       },
     ],
   },
-  {
-    title: 'PUBLIC',
-    links: [
-      {
-        name: 'All Tenders',
-        icon: <FiShoppingBag />,
-      },
-      {
-        name: 'Status Of Contracts',
-        icon: <FiShoppingBag />,
-      },
-      {
-        name: 'Insights Of Past Tenders',
-        icon: <FiShoppingBag />,
-      },
-    ],
-  },
-
 ]
-
-
 
 export const cartData = [
   {

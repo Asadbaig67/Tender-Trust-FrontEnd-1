@@ -34,6 +34,7 @@ const Navbar = () => {
   // State Variables
   const isPublic = useSelector((state) => state.bool.isPublic);
   const user = useSelector((state) => state.bool.userProfile);
+  const authUser = useSelector((state) => state.user.authUser);
 
   const {
     currentColor,
@@ -132,10 +133,14 @@ const Navbar = () => {
             src={avatar}
             alt="user-profile"
           />
-          {/* <p>
-            <span className="text-gray-400 text-14">Hi,</span>{" "}
-            <span className="text-gray-400 font-bold ml-1 text-14">User</span>
-          </p> */}
+          {authUser && (
+            <p>
+              <span className="text-gray-400 text-14">Hi,</span>{" "}
+              <span className="text-gray-400 font-bold ml-1 text-14">
+                {authUser.user.name}
+              </span>
+            </p>
+          )}
           <MdKeyboardArrowDown className="text-gray-400 text-14" />
         </div>
 

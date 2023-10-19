@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  authUser: {},
+  authUser: null,
   status: "idle",
   error: null,
 };
@@ -38,6 +38,7 @@ export const loginUser = createAsyncThunk(
   "authUser/loginUser",
   async (loginData) => {
     try {
+      
       const response = await axios.post(
         "http://localhost:5000/contractor/login",
         loginData,
