@@ -20,7 +20,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const authUser = useSelector((state) => state.user.authUser);
-  console.log("authUser", authUser);
 
   const [loginData, setLoginData] = useState({
     email: "",

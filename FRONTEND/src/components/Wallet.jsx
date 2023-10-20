@@ -1,6 +1,6 @@
 import Web3 from "web3";
 import { useNavigate } from "react-router-dom";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useStateContext } from "../contexts/ContextProvider";
 import metamask from "../data/metamask.svg";
 import Alert from "@mui/material/Alert";
@@ -10,7 +10,6 @@ import { setMetaMaskCred } from "../Toolkit/Slices/Web3Slice";
 import ABI from "../ABI.json";
 
 const Wallet = () => {
-
   const account = useSelector((state) => state.web3.account);
   const contract = useSelector((state) => state.web3.contract);
 
@@ -49,46 +48,38 @@ const Wallet = () => {
     }
   };
 
-  console.log(account);
-  console.log(contract);
-
   return (
     <>
       {isMetaMaskInstalled ? (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-white p-8">
-          <div className="text-xl font-semibold">
-            <span>WELCOME TO TENDER TRUST</span>
-          </div>
-          <div className="mt-4 text-center">
-            <p> Please connect MetaMask wallet to access the app </p>
-            <div className="mt-3">
-              <button
-                onClick={connectWallet}
-                style={{ backgroundColor: currentColor }}
-                className={` text-white font-bold py-2 px-4 rounded-md `}
-              >
-                <img
-                  className="inline-block h-5 w-5 mr-2"
-                  src={metamask}
-                  alt="Metamask"
-                />
-                Connect Wallet
-              </button>
-            </div>
-          </div>
+        <div className="">
+          <button
+            onClick={connectWallet}
+            style={{ backgroundColor: currentColor }}
+            className={` text-white font-bold py-2 px-4 rounded-md `}
+          >
+            <img
+              className="inline-block h-5 w-5 mr-2"
+              src={metamask}
+              alt="Metamask"
+            />
+            Connect with MetaMask
+          </button>
         </div>
       ) : (
-        <Alert severity="warning">
-          <AlertTitle>Warning</AlertTitle>
-          MetaMask is not installed. Please{" "}
-          <strong
-            onClick={openMetaMaskInstallPage}
-            style={{ cursor: "pointer" }}
+        <div className="">
+          <button
+            onClick={connectWallet}
+            style={{ backgroundColor: currentColor }}
+            className={` text-white font-bold py-2 px-4 rounded-md `}
           >
-            install MetaMask
-          </strong>{" "}
-          to continue.
-        </Alert>
+            <img
+              className="inline-block h-5 w-5 mr-2"
+              src={metamask}
+              alt="Metamask"
+            />
+            Connect MetaMask Wallet
+          </button>
+        </div>
       )}
     </>
   );

@@ -38,7 +38,6 @@ export const loginUser = createAsyncThunk(
   "authUser/loginUser",
   async (loginData) => {
     try {
-      
       const response = await axios.post(
         "http://localhost:5000/contractor/login",
         loginData,
@@ -63,7 +62,11 @@ export const loginUser = createAsyncThunk(
 export const authUserSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setUser: (state, action) => {
+      state.authUser = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {

@@ -2,18 +2,42 @@ import React from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 // import { Button } from ".";
+import { useNavigate } from "react-router-dom";
 import { userProfileData } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
 import avatar from "../data/avatar.jpg";
 import { IoLogInOutline } from "react-icons/io5";
+import { BiLogOut } from "react-icons/bi";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 import { TiUserAdd } from "react-icons/ti";
+import { setUser } from "../Toolkit/Slices/authUserSlice";
+import { setpublic } from "../Toolkit/Slices/booleanSlice";
+import { setMetaMaskCred } from "../Toolkit/Slices/Web3Slice";
+import Wallet from "./Wallet";
 
 const UserProfile = () => {
   const { currentColor } = useStateContext();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const authUser = useSelector((state) => state.user.authUser);
+
+  // Logout function
+  const HandleLogout = () => {
+    dispatch(setUser(null));
+    dispatch(setpublic(true));
+    dispatch(
+      setMetaMaskCred({
+        web3: null,
+        contract: null,
+        account: null,
+      })
+    );
+    navigate("/");
+  };
 
   return (
     <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-78">
@@ -64,20 +88,36 @@ const UserProfile = () => {
       </div> */}
       <div className="mt-5">
         <Stack direction="column" spacing={2}>
-          <Button
-            variant="contained"
-            style={{ backgroundColor: currentColor }}
-            endIcon={<TiUserAdd />}
-          >
-            <Link to="/signup">Sign-Up</Link>
-          </Button>
-          <Button
-            style={{ backgroundColor: currentColor }}
-            variant="contained"
-            endIcon={<IoLogInOutline />}
-          >
-            <Link to="/login">Login</Link>
-          </Button>
+          {authUser ? (
+            <>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: currentColor }}
+                endIcon={<BiLogOut />}
+                onClick={HandleLogout}
+              >
+                <Link to="/signup">Logout</Link>
+              </Button>
+              <Wallet />
+            </>
+          ) : (
+            <>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: currentColor }}
+                endIcon={<TiUserAdd />}
+              >
+                <Link to="/signup">Sign-Up</Link>
+              </Button>
+              <Button
+                style={{ backgroundColor: currentColor }}
+                variant="contained"
+                endIcon={<IoLogInOutline />}
+              >
+                <Link to="/login">Login</Link>
+              </Button>
+            </>
+          )}
         </Stack>
       </div>
     </div>
