@@ -8,7 +8,7 @@ import { Tenderdata } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
 
 const Sidebar = () => {
-  const isPublicValue = useSelector((state) => state.isPublic.isPublic);
+  const isPublicValue = useSelector((state) => state.bool.isPublic);
   const { currentColor, activeMenu, setActiveMenu, screenSize } =
     useStateContext();
 
@@ -45,29 +45,33 @@ const Sidebar = () => {
             </button>
           </div>
           <div className="mt-10 ">
-            {Tenderdata.map((item) => (
-              <div key={item.title}>
-                <p className="text-gray-400 dark:text-gray-400 m-3 mt-4 uppercase">
-                  {item.title}
-                </p>
-                {item.links.map((link) => (
-                  <NavLink
-                    to={`/${link.link}`}
-                    key={link.name}
-                    onClick={handleCloseSideBar}
-                    style={({ isActive }) => ({
-                      backgroundColor: isActive ? currentColor : "",
-                    })}
-                    className={({ isActive }) =>
-                      isActive ? activeLink : normalLink
-                    }
-                  >
-                    {link.icon}
-                    <span className="capitalize ">{link.name}</span>
-                  </NavLink>
-                ))}
-              </div>
-            ))}
+            {Tenderdata.map((item) =>
+              item.title === "CONTRACTOR" && isPublicValue === false ? (
+                <div key={item.title}>
+                  <p className="text-gray-400 dark:text-gray-400 m-3 mt-4 uppercase">
+                    {item.title}
+                  </p>
+                  {item.links.map((link) => (
+                    <NavLink
+                      to={`/${link.link}`}
+                      key={link.name}
+                      onClick={handleCloseSideBar}
+                      style={({ isActive }) => ({
+                        backgroundColor: isActive ? currentColor : "",
+                      })}
+                      className={({ isActive }) =>
+                        isActive ? activeLink : normalLink
+                      }
+                    >
+                      {link.icon}
+                      <span className="capitalize ">{link.name}</span>
+                    </NavLink>
+                  ))}
+                </div>
+              ) : (
+                ""
+              )
+            )}
           </div>
         </>
       )}
