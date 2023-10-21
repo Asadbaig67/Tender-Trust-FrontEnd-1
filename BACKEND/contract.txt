@@ -1,0 +1,58 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract TenderCreation {
+    address public governmentOfficial;
+    
+      enum TenderStatus { Open, Closed, Cancelled }
+
+    struct Tender {
+        string name;
+        string contractTitle;
+        string description;
+        uint256 startDate;
+        uint256 endDate;
+        uint256 tenderNumber;
+        TenderStatus status;
+    }
+    
+    Tender[] public tenders;
+    
+    constructor() {
+        governmentOfficial = msg.sender;
+    }
+    
+    modifier onlyGovernmentOfficial() {
+        require(msg.sender == governmentOfficial, "Only government official can create tenders");
+        _;
+    }
+  
+    function createTender(
+        string memory _name,
+        string memory _contractTitle,
+        string memory _description,
+        uint256 _startDate,
+        uint256 _endDate,
+        uint256 _tenderNumber
+    ) public {
+        tenders.push(Tender({
+            name: _name,
+            contractTitle: _contractTitle,
+            description: _description,
+            startDate: _startDate,
+            endDate: _endDate,
+            tenderNumber: _tenderNumber,
+            status: TenderStatus.Open
+        }));
+    }
+
+    function getAllTenders() public view returns (Tender[] memory) {
+        return tenders;
+    }
+    
+    function closeTender(uint256 _tenderIndex) external onlyGovernmentOfficial {
+        tenders[_tenderIndex].status = TenderStatus.Closed;
+    }
+    
+   
+}
