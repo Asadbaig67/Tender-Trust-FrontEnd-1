@@ -16,8 +16,33 @@
 		"inputs": [
 			{
 				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_contractTitle",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
 				"name": "_description",
 				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_startDate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_endDate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_tenderNumber",
+				"type": "uint256"
 			}
 		],
 		"name": "createTender",
@@ -32,12 +57,49 @@
 	},
 	{
 		"inputs": [],
-		"name": "getTenderCount",
+		"name": "getAllTenders",
 		"outputs": [
 			{
-				"internalType": "uint256",
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "contractTitle",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "startDate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "endDate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tenderNumber",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum TenderCreation.TenderStatus",
+						"name": "status",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct TenderCreation.Tender[]",
 				"name": "",
-				"type": "uint256"
+				"type": "tuple[]"
 			}
 		],
 		"stateMutability": "view",
@@ -68,8 +130,33 @@
 		"outputs": [
 			{
 				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "contractTitle",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
 				"name": "description",
 				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "startDate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "endDate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tenderNumber",
+				"type": "uint256"
 			},
 			{
 				"internalType": "enum TenderCreation.TenderStatus",
