@@ -21,9 +21,11 @@ Router.post(
   "/login",
   passport.authenticate("local"),
   (req, res) => {
+    console.log("Login Success");
     if (req.isAuthenticated()) {
       res.status(200).json({ message: "Login Success", user: req.user });
     } else {
+      console.log("User not authenticated");
       res.status(401).json({ message: "User not authenticated" });
     }
   }

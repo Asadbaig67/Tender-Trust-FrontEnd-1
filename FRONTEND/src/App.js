@@ -14,6 +14,7 @@ import Login from "./components/Login";
 import AllTendersDisplay from "./components/AllTendersDisplay";
 import Public_tenders from "./pages/Public_tenders";
 import Signup from "./components/Signup";
+import Home from "./pages/Home";
 // import 'rsuite/dist/rsuite.min.css';
 import GovernmentAttributes from "./components/GovernmentAttributes";
 import SingleTenderView from "./components/SingleTenderView";
@@ -87,10 +88,11 @@ const App = () => {
                 : "bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2 "
             }
           >
-            <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
+            {/* <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
               <Navbar />
-            </div>
-            <div>
+            </div> */}
+            <div className="">
+            {/* <div className="mt-[50px]"> */}
               {themeSettings && <ThemeSettings />}
 
               <Routes>
@@ -111,6 +113,8 @@ const App = () => {
 
                 {/* {ALL PUBLIC ROUTES ARE BELLOW} */}
                 <Route path="/" element={<Public_tenders />} />
+                <Route path="/home" element={<Home />} />
+
 
               </Routes>
             </div>

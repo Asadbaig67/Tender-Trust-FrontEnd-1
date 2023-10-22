@@ -47,13 +47,15 @@ export const loginUser = createAsyncThunk(
           },
         }
       );
-
+      console.log(response.data);
+      
       if (response.status === 200) {
         return response.data;
       } else {
         throw new Error("Request failed with status: " + response.status);
       }
     } catch (error) {
+      console.log("Bhai idhr aya hua hn main");
       throw error;
     }
   }
