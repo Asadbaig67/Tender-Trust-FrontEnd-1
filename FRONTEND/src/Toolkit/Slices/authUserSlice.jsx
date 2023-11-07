@@ -5,6 +5,8 @@ const initialState = {
   authUser: null,
   status: "idle",
   error: null,
+  loginLoading: false,
+  registerLoading: false,
 };
 
 // To Sign-Up User
@@ -47,8 +49,7 @@ export const loginUser = createAsyncThunk(
           },
         }
       );
-      console.log(response.data);
-      
+
       if (response.status === 200) {
         return response.data;
       } else {
@@ -69,36 +70,51 @@ export const authUserSlice = createSlice({
       state.authUser = action.payload;
     },
   },
+  setLoginLoading: (state, action) => {
+    state.loginLoading = action.payload;
+  },
+  setRegisterLoading: (state, action) => {
+    state.registerLoading = action.payload;
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
         state.status = "loading";
+        state.loginLoading = true;
+        state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.authUser = action.payload;
+        state.loginLoading = false;
         state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = "failed";
+        state.loginLoading = false;
         state.error = action.error.message;
       })
       .addCase(signUpUser.pending, (state) => {
         state.status = "loading";
+        state.registerLoading = true;
+        state.error = null;
       })
       .addCase(signUpUser.fulfilled, (state, action) => {
         state.status = "succeeded";
+        state.registerLoading = false;
         state.authUser = action.payload;
         state.error = null;
       })
       .addCase(signUpUser.rejected, (state, action) => {
         state.status = "failed";
+        state.registerLoading = false;
         state.error = action.error.message;
       });
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setUser } = authUserSlice.actions;
+export const { setUser, setLoginLoading, setRegisterLoading } =
+  authUserSlice.actions;
 
 export default authUserSlice.reducer;

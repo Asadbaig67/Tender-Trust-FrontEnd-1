@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import { Navbar, Footer, Sidebar, ThemeSettings } from "./components";
+import Navbar_1 from "./components/Navbar_1";
 import Wallet from './components/Wallet';
 import CreateTender from "./pages/CreateTender";
 import Assign_task from "./components/Assign_task";
@@ -26,6 +27,7 @@ import { useStateContext } from "./contexts/ContextProvider";
 
 const App = () => {
   // const [isPublic, setIsPublic] = React.useState(true);
+  const location = useLocation();
   const isPublicValue = useSelector((state) => state.bool.isPublic);
   const {
     setCurrentColor,
@@ -56,72 +58,79 @@ const App = () => {
   }, []);
 
 
+
+  console.log("location", location.pathname);
+
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>
-      <BrowserRouter>
-        <div className="flex relative dark:bg-main-dark-bg">
-          <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
-            <button
-              type="button"
-              onClick={() => setThemeSettings(true)}
-              style={{ background: currentColor, borderRadius: "50%" }}
-              className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray"
-            >
-              <FiSettings />
-            </button>
-          </div>
-          {!isPublicValue && (
-            activeMenu ? (
-              <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
-                <Sidebar />
-              </div>
-            ) : (
-              <div className="w-0 dark:bg-secondary-dark-bg">
-                <Sidebar />
-              </div>
-            )
-          )}
-          <div
-            className={
-              activeMenu && !isPublicValue
-                ? "dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-72 w-full"
-                : "bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2 "
-            }
+      {/* <BrowserRouter> */}
+      <div className="flex relative dark:bg-main-dark-bg">
+        <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
+          <button
+            type="button"
+            onClick={() => setThemeSettings(true)}
+            style={{ background: currentColor, borderRadius: "50%" }}
+            className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray"
           >
-            {/* <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
-              <Navbar />
-            </div> */}
-            <div className="">
-            {/* <div className="mt-[50px]"> */}
-              {themeSettings && <ThemeSettings />}
-
-              <Routes>
-                <Route path="/contractor/alltenders" element={<Tender title={title} author={author} description={description} />} />
-                <Route path="/activetenders" element={<Tender />} />
-                <Route path="/create" element={<CreateTender />} />
-                <Route path="/assigntask" element={<Assign_task />} />
-                <Route path="/bid" element={<Bid />} />
-                <Route path="/wallet" element={<Wallet />} />
-                <Route path="/test" element={<Test />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/alltenderdisplay" element={<AllTendersDisplay />} />
-                <Route path="/governmentattributes" element={<GovernmentAttributes />} />
-                <Route path="/singletenderview" element={<SingleTenderView />} />
-                <Route path="/assigntender" element={<AssignTender />} />
-                <Route path="/bidtender" element={<BidTender />} />
-
-                {/* {ALL PUBLIC ROUTES ARE BELLOW} */}
-                <Route path="/" element={<Public_tenders />} />
-                <Route path="/home" element={<Home />} />
-
-
-              </Routes>
-            </div>
-            <Footer />
-          </div>
+            <FiSettings />
+          </button>
         </div>
-      </BrowserRouter>
+        {!isPublicValue && (
+          activeMenu ? (
+            <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
+              <Sidebar />
+            </div>
+          ) : (
+            <div className="w-0 dark:bg-secondary-dark-bg">
+              <Sidebar />
+            </div>
+          )
+        )}
+        <div
+          className={
+            activeMenu && !isPublicValue
+              ? "dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-72 w-full"
+              : "bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2 "
+          }
+        >
+
+
+          {isPublicValue ? (<div className="fixed w-full bg-white top-0 left-0 z-50">
+            {location.pathname === '/login' || location.pathname === '/signup' ? "" : <Navbar_1 />}
+          </div>) : (<div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
+            {location.pathname === '/login' || location.pathname === '/signup' ? "" : <Navbar />}
+          </div>)}
+
+
+          <div className="">
+            {/* <div className="mt-[50px]"> */}
+            {themeSettings && <ThemeSettings />}
+
+            <Routes>
+              <Route path="/contractor/alltenders" element={<Tender title={title} author={author} description={description} />} />
+              <Route path="/activetenders" element={<Tender />} />
+              <Route path="/create" element={<CreateTender />} />
+              <Route path="/assigntask" element={<Assign_task />} />
+              <Route path="/bid" element={<Bid />} />
+              <Route path="/wallet" element={<Wallet />} />
+              <Route path="/test" element={<Test />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/alltenderdisplay" element={<AllTendersDisplay />} />
+              <Route path="/governmentattributes" element={<GovernmentAttributes />} />
+              <Route path="/singletenderview" element={<SingleTenderView />} />
+              <Route path="/assigntender" element={<AssignTender />} />
+              <Route path="/bidtender" element={<BidTender />} />
+
+              {/* {ALL PUBLIC ROUTES ARE BELLOW} */}
+              <Route path="/tenders" element={<Public_tenders />} />
+              <Route path="/" element={<Home />} />
+            </Routes>
+          </div>
+          {location.pathname === '/login' || location.pathname === '/signup' ? "" : <Footer />}
+        </div>
+      </div>
+      {/* </BrowserRouter> */}
     </div>
   );
 };

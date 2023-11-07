@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
+import { Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Tender from "../components/Tender";
 import { TendersData } from "../data/dummy";
@@ -14,12 +15,12 @@ import Navbar_1 from "../components/Navbar_1";
 const Home = () => {
   return (
     <div>
-      <div className="fixed w-full bg-white top-0 left-0 z-50">
+      {/* <div className="fixed w-full bg-white top-0 left-0 z-50">
         <Navbar_1 />
-      </div>
+      </div> */}
       <section className="bg-white dark:bg-gray-900">
         <div className="container px-6 py-16 mx-auto text-center">
-          <div className="max-w-lg mx-auto">
+          <div className="max-w-lg mt-5 mx-auto">
             <h1 className="text-3xl font-semibold text-gray-800 dark:text-white lg:text-4xl">
               Unlocking the Future of Tendering with Blockchain
             </h1>
@@ -93,23 +94,22 @@ const Home = () => {
             />
           </div>
 
-          <div className="mt-[20px] text-white">
+          <div className="mt-[40px] text-white">
             <div className="flex justify-between">
-              <h1 className="fs-1">Latest Tenders</h1>
-              {/* <button
-                type="button"
-                class="bg-white p-2 hover:bg-indigo-400 focus:bg-indigo-400 text-black font-semibold rounded-lg"
-                // style={{ backgroundColor: currentColor }}
-              >
-                View All <FaArrowRight />
-              </button> */}
-              <Button
-                endIcon={<FaArrowRight />}
-                style={{ backgroundColor: "#fff", color: "#000" }}
-                className="p-2 font-semibold rounded-lg"
-              >
-                Explore All
-              </Button>
+              <h1 className="text-xl font-bold lg:ml-5">Latest Tenders</h1>
+              <Link to='/tenders'>
+                <Button
+                  endIcon={<FaArrowRight />}
+                  style={{
+                    backgroundColor: "#fff",
+                    marginRight: "20px",
+                    color: "#000",
+                  }}
+                  className="p-2 font-semibold  rounded-lg"
+                >
+                  Explore All
+                </Button>
+              </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
               {TendersData.slice(0, 3).map((item, index) => {
@@ -125,15 +125,15 @@ const Home = () => {
             </div>
           </div>
 
-          <div>
-            <NewsLetter />
-          </div>
-
-          <div>
+          <div className="mt-5">
             <LogoClouds />
           </div>
 
-          <div>
+          <div className="mt-5">
+            <NewsLetter />
+          </div>
+
+          <div className="mt-5">
             <Testimonials />
           </div>
         </div>

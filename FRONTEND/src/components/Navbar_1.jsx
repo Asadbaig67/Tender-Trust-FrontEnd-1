@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { SiShopware } from "react-icons/si";
+import { Button } from "@mui/material";
 
 const Navbar_1 = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,13 +14,13 @@ const Navbar_1 = () => {
     <div>
       <nav className="container p-3 mx-auto lg:flex lg:justify-between lg:items-center">
         <div className="flex items-center justify-between">
-          <a href="#">
-            <img
-              className="w-auto h-6 sm:h-7"
-              src="https://merakiui.com/images/full-logo.svg"
-              alt=""
-            />
-          </a>
+          <Link
+            to="/"
+            className="items-center gap-3 ml-3 flex text-xl font-extrabold tracking-tight dark:text-white"
+          >
+            <SiShopware className="text-black" />{" "}
+            <span className="text-black">Tender Trust</span>
+          </Link>
 
           <div className="flex lg:hidden">
             <button
@@ -67,38 +70,36 @@ const Navbar_1 = () => {
           } absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white shadow-md lg:bg-transparent lg:dark:bg-transparent lg:shadow-none dark:bg-gray-900 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center`}
         >
           <div className="flex flex-col space-y-4 lg:mt-0 lg:flex-row lg:-px-8 lg:space-y-0">
-            <a
-              className="transition-colors duration-300 transform lg:mx-8 dark:hover:text-black hover:text-black border-b-2 border-transparent hover:border-black transition-all duration-300 ease-in-out"
-              href="#"
-            >
-              Home
-            </a>
-            <a
-              className="lg:mx-8 dark:hover:text-black hover:text-black border-b-2 border-transparent hover:border-black transition-all duration-300 ease-in-out"
-              href="#"
-            >
-              Tenders
-            </a>
-            <a
-              className="lg:mx-8 dark:hover:text-black hover:text-black border-b-2 border-transparent hover:border-black transition-all duration-300 ease-in-out"
-              href="#"
-            >
-              Tender Insights
-            </a>
-            <a
-              className="lg:mx-8 dark:hover:text-black hover:text-black border-b-2 border-transparent hover:border-black transition-all duration-300 ease-in-out"
-              href="#"
-            >
-              Tender Status
-            </a>
+            <Link to="/">
+              <a className="transition-colors duration-300 transform lg:mx-8 dark:hover:text-black hover:text-black border-b-2 border-transparent hover:border-black transition-all duration-300 ease-in-out">
+                Home
+              </a>
+            </Link>
+
+            <Link to="/tenders">
+              <a className="lg:mx-8 dark:hover:text-black hover:text-black border-b-2 border-transparent hover:border-black transition-all duration-300 ease-in-out">
+                Tenders
+              </a>
+            </Link>
+            <Link to="/insights">
+              <a className="lg:mx-8 dark:hover:text-black hover:text-black border-b-2 border-transparent hover:border-black transition-all duration-300 ease-in-out">
+                Tender Insights
+              </a>
+            </Link>
+
+            <Link to="/status">
+              <a className="lg:mx-8 dark:hover:text-black hover:text-black border-b-2 border-transparent hover:border-black transition-all duration-300 ease-in-out">
+                Tender Status
+              </a>
+            </Link>
           </div>
 
-          <a
-            className="block px-5 py-2 mt-4 text-sm text-center text-white capitalize bg-blue-600 rounded-lg lg:mt-0 hover:bg-slate-500 lg:w-auto"
-            href="#"
-          >
-            Get started
-          </a>
+          <Link to="/login" className="mx-2">
+            <Button variant="outlined">Login</Button>
+          </Link>
+          <Link to="/signup" className="mx-2">
+            <Button variant="contained">Register</Button>
+          </Link>
         </div>
       </nav>
     </div>
