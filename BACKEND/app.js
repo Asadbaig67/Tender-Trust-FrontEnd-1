@@ -53,7 +53,9 @@ const { Web3 } = require("web3");
 const web3 = new Web3(
   "https://eth-sepolia.g.alchemy.com/v2/ks2UXGvvtc2BEiJ5RUzKmKgcBUCCldJJ"
 );
-const contractAddress = "0x88B238271e8B6f0AB102F65f2A767996B1D38C84";
+
+
+const contractAddress = "0x3c472e85D44FD0C87d496e511B4330C02c4AeA77";
 const contract = new web3.eth.Contract(ABI, contractAddress);
 
 app.post("/createTender", async (req, res) => {
@@ -94,6 +96,7 @@ app.post("/createTender", async (req, res) => {
 app.get("/viewAllTenders", async (req, res) => {
   try {
     const viewAllTenders = await contract.methods.getAllTenders().call();
+    
 
     res.status(200).json({ status: 200, viewAllTenders });
   } catch (error) {
