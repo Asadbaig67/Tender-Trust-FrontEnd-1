@@ -21,6 +21,7 @@ import GovernmentAttributes from "./components/GovernmentAttributes";
 import SingleTenderView from "./components/SingleTenderView";
 import AssignTender from "./components/AssignTender";
 import BidTender from "./components/BidTender";
+import DatePicker from "./components/DatePicker";
 import "./App.css";
 
 import { useStateContext } from "./contexts/ContextProvider";
@@ -58,14 +59,14 @@ const App = () => {
   }, []);
 
 
-
-  console.log("location", location.pathname);
+  console.log("authUser", authUser);
+  console.log("isPublicValue", isPublicValue);
 
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>
       {/* <BrowserRouter> */}
       <div className="flex relative dark:bg-main-dark-bg">
-        <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
+        {!isPublicValue && (<div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
           <button
             type="button"
             onClick={() => setThemeSettings(true)}
@@ -74,7 +75,8 @@ const App = () => {
           >
             <FiSettings />
           </button>
-        </div>
+        </div>)}
+
         {!isPublicValue && (
           activeMenu ? (
             <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
@@ -104,13 +106,14 @@ const App = () => {
 
           <div className="">
             {/* <div className="mt-[50px]"> */}
-            {themeSettings && <ThemeSettings />}
+            {themeSettings && < ThemeSettings />}
 
             <Routes>
               <Route path="/contractor/alltenders" element={<Tender title={title} author={author} description={description} />} />
-              <Route path="/activetenders" element={<Tender />} />
-              <Route path="/create" element={<CreateTender />} />
-              <Route path="/assigntask" element={<Assign_task />} />
+              <Route path="/govofficial/alltenders" element={<Tender title={title} author={author} description={description} />} />
+              <Route path="/activetenders" element={<Tender title={title} author={author} description={description} />} />
+              <Route path="/govofficial/tender/create" element={<CreateTender />} />
+              <Route path="/govofficial/tender/assign" element={<Assign_task />} />
               <Route path="/bid" element={<Bid />} />
               <Route path="/wallet" element={<Wallet />} />
               <Route path="/test" element={<Test />} />
@@ -121,6 +124,7 @@ const App = () => {
               <Route path="/singletenderview" element={<SingleTenderView />} />
               <Route path="/assigntender" element={<AssignTender />} />
               <Route path="/bidtender" element={<BidTender />} />
+              <Route path="/date" element={<DatePicker />} />
 
               {/* {ALL PUBLIC ROUTES ARE BELLOW} */}
               <Route path="/tenders" element={<Public_tenders />} />

@@ -1,23 +1,14 @@
-// import express from 'express';
-// import dotenv from "dotenv";
-// import connect from './src/config/DataBaseConnection.js';
-// import cors from 'cors';
-// import passport from 'passport';
-
-// import { passportLocalSetup } from "./passport.js";
-// import expressSession from "express-session";
-
-// // Importing Routes
-// import Email from './src/routes/EmailVerification.js';
-// import Contractors from './src/routes/Contractor_Routes.js';
 const express = require("express");
 const dotenv = require("dotenv");
 const connect = require("./src/config/DataBaseConnection.js");
 const cors = require("cors");
 const passport = require("passport");
-
 const { passportLocalSetup } = require("./passport.js");
 const expressSession = require("express-session");
+
+// Import your Contractor and GovOfficial models
+const Contractor = require("./src/models/Contractor.js");
+
 
 // Importing Routes
 const Email = require("./src/routes/EmailVerification.js");
@@ -31,7 +22,7 @@ dotenv.config();
 app.use(express.json());
 
 // Passport Setup
-passportLocalSetup();
+passportLocalSetup(); // Setup for Contractors
 
 // Express Session
 app.use(
@@ -76,13 +67,19 @@ app.post("/createTender", async (req, res) => {
       tenderNumber,
     } = req.body;
 
+    const startTimestamp = Math.floor(new Date(startDate).getTime() / 1000);
+    const endTimestamp = Math.floor(new Date(endDate).getTime() / 1000);
+
+    console.log(startTimestamp);
+    console.log(endTimestamp);
+
     const tender = await contract.methods
       .createTender(
         name,
         contractTitle,
         description,
-        startDate,
-        endDate,
+        startTimestamp,
+        endTimestamp,
         tenderNumber
       )
       .call();

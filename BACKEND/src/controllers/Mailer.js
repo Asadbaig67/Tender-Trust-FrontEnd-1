@@ -1,5 +1,3 @@
-// import nodemailer from 'nodemailer';
-// import Mailgen from 'mailgen';
 const nodemailer = require('nodemailer');
 const { Mailgen } = require('mailgen');
 

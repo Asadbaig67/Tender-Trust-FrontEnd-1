@@ -31,7 +31,9 @@ const Footer = () => {
                 <SiShopware className="text-black" />{" "}
                 <span className="text-black">Tender Trust</span>
               </Link>
-              <p className="mt-2 text-sm text-gray-500">Design, Code and Ship!</p>
+              <p className="mt-2 text-sm text-gray-500">
+                Design, Code and Ship!
+              </p>
               <div className="mt-4">
                 <span className="inline-flex justify-center mt-2 sm:ml-auto sm:mt-0 sm:justify-start">
                   <a className="text-gray-500 cursor-pointer hover:text-gray-700">
@@ -101,29 +103,35 @@ const Footer = () => {
             </div>
             <div className="flex flex-wrap flex-grow mt-10 -mb-10 text-center md:pl-20 md:mt-0 md:text-left">
               <div className="w-full px-4 lg:w-1/4 md:w-1/2">
-                <h2 className="mb-3 text-sm font-medium tracking-widest text-gray-900 uppercase title-font">
-                  About
+                <h2 className="mb-3 text-sm font-bold tracking-widest text-gray-900 uppercase title-font">
+                  Quick Links
                 </h2>
                 <nav className="mb-10 list-none">
                   <li className="mt-3">
-                    <a className="text-gray-500 cursor-pointer hover:text-gray-900">
-                      Company
-                    </a>
+                    <Link to="/">
+                      <a className="text-gray-500 cursor-pointer hover:text-gray-900">
+                        Tenders
+                      </a>
+                    </Link>
                   </li>
                   <li className="mt-3">
-                    <a className="text-gray-500 cursor-pointer hover:text-gray-900">
-                      Careers
-                    </a>
+                    <Link to="/tender/status">
+                      <a className="text-gray-500 cursor-pointer hover:text-gray-900">
+                        Tender Status
+                      </a>
+                    </Link>
                   </li>
                   <li className="mt-3">
-                    <a className="text-gray-500 cursor-pointer hover:text-gray-900">
-                      Blog
-                    </a>
+                    <Link to="/login">
+                      <a className="text-gray-500 cursor-pointer hover:text-gray-900">
+                        Login
+                      </a>
+                    </Link>
                   </li>
                 </nav>
               </div>
               <div className="w-full px-4 lg:w-1/4 md:w-1/2">
-                <h2 className="mb-3 text-sm font-medium tracking-widest text-gray-900 uppercase title-font">
+                <h2 className="mb-3 text-sm font-bold tracking-widest text-gray-900 uppercase title-font">
                   Support
                 </h2>
                 <nav className="mb-10 list-none">
@@ -145,7 +153,7 @@ const Footer = () => {
                 </nav>
               </div>
               <div className="w-full px-4 lg:w-1/4 md:w-1/2">
-                <h2 className="mb-3 text-sm font-medium tracking-widest text-gray-900 uppercase title-font">
+                <h2 className="mb-3 text-sm font-bold tracking-widest text-gray-900 uppercase title-font">
                   Platform
                 </h2>
                 <nav className="mb-10 list-none">
@@ -167,7 +175,7 @@ const Footer = () => {
                 </nav>
               </div>
               <div className="w-full px-4 lg:w-1/4 md:w-1/2">
-                <h2 className="mb-3 text-sm font-medium tracking-widest text-gray-900 uppercase title-font">
+                <h2 className="mb-3 text-sm font-bold tracking-widest text-gray-900 uppercase title-font">
                   Contact
                 </h2>
                 <nav className="mb-10 list-none">
@@ -191,9 +199,13 @@ const Footer = () => {
             </div>
           </div>
         )}
-        <div className="bg-gray-300">
+        <div
+          className={`bg-gray-300 ${
+            !isPublicValue ? "fixed left-50 right-50 bottom-0 w-full" : ""
+          } `}
+        >
           <div className="container px-5 py-4 mx-auto">
-            <p className="text-sm text-gray-700 capitalize xl:text-center">
+            <p className="text-sm text-gray-700  capitalize xl:text-center">
               © 2023 Tender Trust All rights reserved{" "}
             </p>
           </div>
