@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { FiShoppingCart } from "react-icons/fi";
 import { BsChatLeft } from "react-icons/bs";
@@ -66,8 +66,33 @@ const Navbar = () => {
 
   const handleActiveMenu = () => setActiveMenu(!activeMenu);
 
+  // Navbar Transition on Scroll
+  const [scrolling, setScrolling] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolling(true);
+      } else {
+        setScrolling(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="flex justify-between p-2 md:ml-6 md:mr-6 relative">
+    <div
+      // style={{ backgroundColor: "darkorchid" }}
+      className="flex justify-between p-2 z-50"
+      // className={`fixed flex justify-between top-0 left-0 p-2 w-full ${
+      //   scrolling ? "bg-black" : "bg-transparent"
+      // } transition-all duration-300 ease-in-out z-50 `}
+    >
       {isPublic ? (
         <Link
           to="/"

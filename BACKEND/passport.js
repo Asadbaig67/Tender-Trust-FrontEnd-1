@@ -27,7 +27,9 @@ const passportLocalSetup = () => {
                     // Find User In DataBase
                     const contractor = await Contractor.findOne({ email: email });
                     // Check If User Exists
+
                     if (!contractor) {
+
                         return done(null, false, { message: "Contractor not found" });
                     }
                     // Check If Password Is Correct
@@ -35,6 +37,7 @@ const passportLocalSetup = () => {
 
                     // If Password Is Wrong
                     if (!result) {
+
                         return done(null, false, { message: "Wrong Password" });
                     }
 
@@ -55,9 +58,11 @@ const passportLocalSetup = () => {
     // Getting User From Session And Storing In req.user
     passport.deserializeUser(async (id, done) => {
         try {
+
             const contractor = await Contractor.findById(id);
             done(null, contractor);
         } catch (error) {
+
             done(error, false);
         }
     });
