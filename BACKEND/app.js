@@ -86,7 +86,7 @@ app.post("/createTender", async (req, res) => {
       )
       .call();
 
-    res.status(200).json({ status: 200, message: "Tender Created" });
+    res.status(200).json({ status: 200, message: "Tender Created", tender });
   } catch (error) {
     res.status(404).json({ status: 500 });
     console.error(error);
@@ -96,9 +96,8 @@ app.post("/createTender", async (req, res) => {
 app.get("/viewAllTenders", async (req, res) => {
   try {
     const viewAllTenders = await contract.methods.getAllTenders().call();
-    
-
-    res.status(200).json({ status: 200, viewAllTenders });
+    console.log(viewAllTenders);
+    res.status(200).json({ status: 200 });
   } catch (error) {
     res.status(404).json({ status: 500 });
     console.error(error);
