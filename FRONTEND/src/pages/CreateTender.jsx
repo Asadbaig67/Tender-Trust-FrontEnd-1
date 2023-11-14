@@ -1,17 +1,46 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "./CreateTender.module.css";
+import dayjs from "dayjs";
 import axios from "axios";
+// import DatePicker from "../components/DatePicker";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const CreateTender = () => {
   const account = useSelector((state) => state.web3.account);
   const contract = useSelector((state) => state.web3.contract);
 
+  const currentDate = new Date();
+
+  const [startDate, setStartDate] = useState(
+    dayjs(
+      `${currentDate.getFullYear()}-${
+        currentDate.getMonth() + 1
+      }-${currentDate.getDate()}`
+    )
+  );
+
+  const [endDate, setEndDate] = useState(
+    dayjs(
+      `${currentDate.getFullYear()}-${
+        currentDate.getMonth() + 1
+      }-${currentDate.getDate()}`
+    )
+  );
+
+  const handleStartDateChange = (newValue) => {
+    setStartDate(newValue);
+  };
+
+  const handleEndDateChange = (newValue) => {
+    setEndDate(newValue);
+  };
+
   const [tender, setTender] = useState({
     tenderName: "",
     contractTitle: "",
-    startDate: "",
-    endDate: "",
     description: "",
     tenderNumber: "",
   });
@@ -25,8 +54,15 @@ const CreateTender = () => {
 
     try {
       const url = "http://localhost:5000/createTender";
-      const description = tender.description;
 
+      const data = {
+        name: tender.tenderName,
+        contractTitle: tender.contractTitle,
+        description: tender.description,
+        tenderNumber: tender.tenderNumber,
+        startDate: startDate.format("YYYY-MM-DD"),
+        endDate: endDate.format("YYYY-MM-DD"),
+      };
       // const response = await axios.post(url, {
       //   headers: {
       //     "Content-Type": "application/json",
@@ -35,7 +71,7 @@ const CreateTender = () => {
       //     description: JSON.stringify(description),
       //   },
       // });
-      const response = await axios.post(url);
+      const response = await axios.post(url, data);
 
       if (response.status === 200) {
         const responseData = response.data;
@@ -58,6 +94,28 @@ const CreateTender = () => {
     }
   };
 
+  const GetTenders = async (e) => {
+    e.preventDefault();
+    try {
+      const url = "http://localhost:5000/viewAllTenders";
+
+      const response = await axios.get(url);
+
+      if (response.status === 200) {
+        const responseData = response.data;
+        // Handle the responseData as needed
+        console.log(responseData);
+      } else {
+        alert("Task cannot be added");
+      }
+    } catch (error) {
+      // Handle errors here
+      console.error("There was a problem with the axios request:", error);
+    } finally {
+      console.log("finally");
+    }
+  };
+
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
 
@@ -68,10 +126,6 @@ const CreateTender = () => {
 
   //   console.log(response.data);
   // };
-
-  console.log(tender);
-  console.log(account);
-  console.log(contract);
 
   return (
     <div>
@@ -146,13 +200,9 @@ const CreateTender = () => {
             >
               {/* SVG path here */}
             </svg>
-            <input
-              title="Input title"
-              name="input-name"
-              type="text"
-              className={styles.input_field}
-              id="email_field"
-            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker value={startDate} onChange={handleStartDateChange} />
+            </LocalizationProvider>
           </div>
           <div className={styles.input_container}>
             <label className={styles.input_label} htmlFor="password_field">
@@ -195,6 +245,7 @@ const CreateTender = () => {
             <input
               title="Input title"
               name="tenderNumber"
+              onChange={handleChange}
               type="text"
               className={styles.input_field}
               id="email_field"
@@ -214,20 +265,16 @@ const CreateTender = () => {
             >
               {/* SVG path here */}
             </svg>
-            <input
-              placeholder=""
-              title="Input title"
-              name="input-name"
-              type="text"
-              className={styles.input_field}
-              id="password_field"
-            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker value={endDate} onChange={handleEndDateChange} />
+            </LocalizationProvider>
           </div>
         </div>
 
         <button
           title="Sign In"
-          onClick={createTask}
+          // onClick={createTask}
+          onClick={GetTenders}
           type="submit"
           className={`mr-auto ${styles.sign_in_btn}`}
         >

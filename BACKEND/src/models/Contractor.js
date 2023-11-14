@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bcryptjs = require('bcryptjs');
 
 
-const contractorSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -18,10 +18,14 @@ const contractorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    default: "Contractor",
+  },
 });
 
 // password hashing
-contractorSchema.pre("save", async function (next) {
+UserSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
     this.password = await bcryptjs.hash(this.password, 12);
     // this.c_password = await bcryptjs.hash(this.c_password, 12);
@@ -30,7 +34,7 @@ contractorSchema.pre("save", async function (next) {
 });
 
 // generating token
-contractorSchema.methods.generatetoken = async function () {
+UserSchema.methods.generatetoken = async function () {
   try {
     let tokenValue = jwt.sign({ _id: this._id }, process.env.SECRET_KEY);
     this.tokens = this.tokens.concat({ token: tokenValue });
@@ -41,8 +45,8 @@ contractorSchema.methods.generatetoken = async function () {
   }
 };
 
-const Contractor = mongoose.model("CONTRACTOR", contractorSchema);
+const User = mongoose.model("Users", UserSchema);
 
 // export default Contractor;
 
-module.exports = Contractor;
+module.exports = User;

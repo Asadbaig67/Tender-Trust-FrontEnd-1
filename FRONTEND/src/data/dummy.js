@@ -709,7 +709,7 @@ export const Tenderdata = [
     links: [
       {
         name: 'All Tenders',
-        link: 'alltenders',
+        link: 'govofficial/alltenders',
         icon: <FiShoppingBag />,
       },
       {
@@ -719,16 +719,12 @@ export const Tenderdata = [
       },
       {
         name: 'Create Tender',
+        link:'govofficial/tender/create',
         icon: <FiShoppingBag />,
       },
       {
         name: 'Assign Task',
-        link: 'assigntask',
-        icon: <FiShoppingBag />,
-      },
-      {
-        name: 'Create Tender',
-        link: 'create',
+        link: 'govofficial/tender/assign',
         icon: <FiShoppingBag />,
       },
     ],

@@ -1,11 +1,6 @@
-// import Contractor from "../models/Contractor.js";
-// import { sendVerificationmail } from "./Mailer.js";
-// import Emailverification from "../models/Emailverification.js";
-const Contractor = require('../models/Contractor.js');
+const User = require('../models/Contractor.js');
 const { sendVerificationmail } = require('./Mailer.js');
 const Emailverification = require('../models/Emailverification.js');
-
-
 
 // User Registration Function
 const registration = async (req, res) => {
@@ -15,7 +10,7 @@ const registration = async (req, res) => {
       req.body;
 
     // Checking if user already exists
-    const exists = await Contractor.findOne({ email });
+    const exists = await User.findOne({ email });
     if (exists) {
       return res.status(422).json({ error: "User already exists" });
     }

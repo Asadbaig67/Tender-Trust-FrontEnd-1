@@ -1,8 +1,5 @@
-// import Emailverification from "../models/Emailverification.js";
-// import Contractor from "../models/Contractor.js";
-// import { SendEmail } from '../utils/Email/SendEmail.js'
 const Emailverification = require('../models/Emailverification.js');
-const Contractor = require('../models/Contractor.js');
+const User = require('../models/Contractor.js');
 const { SendEmail } = require('../utils/Email/SendEmail.js');
 
 
@@ -29,7 +26,7 @@ const Emailverify = async (req, res) => {
   // }
 
   // creating new user
-  const new_contractor = new Contractor({
+  const new_contractor = new User({
     name,
     email,
     password,

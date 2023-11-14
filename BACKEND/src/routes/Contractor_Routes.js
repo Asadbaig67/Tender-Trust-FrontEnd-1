@@ -1,13 +1,8 @@
-// import express from "express";
-// import passport from "passport";
 const express = require('express');
 const passport = require('passport');
+const User = require('../models/Contractor');
 
 
-
-// import {
-//   registration,
-// } from "../controllers/Contractor.js";
 const { registration } = require("../controllers/Contractor.js");
 
 

@@ -49,8 +49,11 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (authUser) {
+    if (authUser && authUser.user.role === "Contractor") {
       navigate("/contractor/alltenders");
+      dispatch(setpublic(false));
+    } else if (authUser && authUser.user.role === "GovOfficial") {
+      navigate("/govofficial/alltenders");
       dispatch(setpublic(false));
     }
   }, [authUser]);
