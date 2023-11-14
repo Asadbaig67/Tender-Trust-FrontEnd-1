@@ -59,7 +59,7 @@ const CreateTender = () => {
         name: tender.tenderName,
         contractTitle: tender.contractTitle,
         description: tender.description,
-        tenderNumber: tender.tenderNumber,
+        tenderNumber: parseInt(tender.tenderNumber),
         startDate: startDate.format("YYYY-MM-DD"),
         endDate: endDate.format("YYYY-MM-DD"),
       };
@@ -273,8 +273,8 @@ const CreateTender = () => {
 
         <button
           title="Sign In"
-          // onClick={createTask}
-          onClick={GetTenders}
+          onClick={createTask}
+          // onClick={GetTenders}
           type="submit"
           className={`mr-auto ${styles.sign_in_btn}`}
         >
