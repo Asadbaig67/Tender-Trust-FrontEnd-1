@@ -42,15 +42,14 @@ const CreateTender = () => {
     tenderName: "",
     contractTitle: "",
     description: "",
-    tenderNumber: 1,
   });
 
   const handleChange = (e) => {
     setTender({ ...tender, [e.target.name]: e.target.value });
   };
 
-  console.log("Contract Is This", contract);
-  console.log("Contract Methods Are ", contract.methods);
+  console.log("Contract Is This", contract._address);
+  // console.log("Contract Methods Are ", contract.methods);
   console.log("Account Is This", account);
 
   const startTimestamp = Math.floor(
@@ -70,9 +69,9 @@ const CreateTender = () => {
         name: tender.tenderName,
         contractTitle: tender.contractTitle,
         description: tender.description,
-        tenderNumber: parseInt(tender.tenderNumber),
+       // tenderNumber: parseInt(tender.tenderNumber),
         startDate: startDate.format("YYYY-MM-DD"),
-        endDate: endDate.format("YYYY-MM-DD"),
+        endDate: endDate.format("YYYY-MM-DD")
       };
 
       const response = await axios.post(url, data);
@@ -82,22 +81,24 @@ const CreateTender = () => {
         console.log(responseData);
         if (contract && contract.methods) {
           console.log("Bhupendra Jogi");
+
           const metaMaskResults = await contract.methods
             .createTender(
               tender.tenderName,
               tender.contractTitle,
               tender.description,
-              parseInt(tender.tenderNumber),
-              startTimestamp,
-              endTimestamp
-            )
-            .send({ from: account });
-
-          if (metaMaskResults.status) {
-            alert("Tender Created Successfully");
-          } else {
-            alert("Tender Not Created Successfully");
-          }
+              "startDate",
+              "endDate"
+            );
+console.log(metaMaskResults,"--------------------------------------------------");
+          // if (metaMaskResults) {
+          //   console.log("tender created");
+          //   alert("Tender Created Successfully");
+          // } else {
+            
+          //   console.log("Tender not Created");
+          //   alert("Tender Not Created Successfully");
+          // }
         }
       } else {
         alert("Task cannot be added");
@@ -105,32 +106,10 @@ const CreateTender = () => {
     } catch (error) {
       // Handle errors here
       console.error("There was a problem with the axios request:", error);
-    } finally {
-      console.log("finally");
-    }
+    } 
   };
 
-  const GetTenders = async (e) => {
-    e.preventDefault();
-    try {
-      const url = "http://localhost:5000/viewAllTenders";
-
-      const response = await axios.get(url);
-
-      if (response.status === 200) {
-        const responseData = response.data;
-        // Handle the responseData as needed
-        console.log(responseData);
-      } else {
-        alert("Task cannot be added");
-      }
-    } catch (error) {
-      // Handle errors here
-      console.error("There was a problem with the axios request:", error);
-    } finally {
-      console.log("finally");
-    }
-  };
+ 
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
