@@ -39,7 +39,7 @@ const Wallet = () => {
             account: accounts[0],
           })
         );
-        navigateTo("/create");
+        navigateTo("/govofficial/tender/create");
       } else {
         throw new Error();
       }

@@ -51,6 +51,7 @@ contract TenderCreation {
     }
     
     function closeTender(uint256 _tenderIndex) external onlyGovernmentOfficial {
+        
         tenders[_tenderIndex].status = TenderStatus.Closed;
     }
     

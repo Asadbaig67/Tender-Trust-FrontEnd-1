@@ -5,10 +5,12 @@ import dayjs from "dayjs";
 import axios from "axios";
 // import DatePicker from "../components/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { useStateContext } from "../contexts/ContextProvider";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const CreateTender = () => {
+  const { currentColor } = useStateContext();
   const account = useSelector((state) => state.web3.account);
   const contract = useSelector((state) => state.web3.contract);
 
@@ -49,9 +51,9 @@ const CreateTender = () => {
     setTender({ ...tender, [e.target.name]: e.target.value });
   };
 
-  console.log("Contract Is This", contract);
-  console.log("Contract Methods Are ", contract.methods);
-  console.log("Account Is This", account);
+  // console.log("Contract Is This", contract);
+  // console.log("Contract Methods Are ", contract.methods);
+  // console.log("Account Is This", account);
 
   const startTimestamp = Math.floor(
     new Date(startDate.format("YYYY-MM-DD")).getTime() / 1000
@@ -62,58 +64,62 @@ const CreateTender = () => {
 
   const createTask = async (event) => {
     event.preventDefault();
+    if (!contract) {
+      alert("Please Connect Your MetaMask First");
+    } else {
+      try {
+        const url = "http://localhost:5000/createTender";
 
-    try {
-      const url = "http://localhost:5000/createTender";
+        const data = {
+          name: tender.tenderName,
+          contractTitle: tender.contractTitle,
+          description: tender.description,
+          // tenderNumber: parseInt(tender.tenderNumber),
+          startDate: startDate.format("YYYY-MM-DD"),
+          endDate: endDate.format("YYYY-MM-DD"),
+        };
 
-      const data = {
-        name: tender.tenderName,
-        contractTitle: tender.contractTitle,
-        description: tender.description,
-        tenderNumber: parseInt(tender.tenderNumber),
-        startDate: startDate.format("YYYY-MM-DD"),
-        endDate: endDate.format("YYYY-MM-DD"),
-      };
+        const response = await axios.post(url, data);
 
-      const response = await axios.post(url, data);
+        if (response.status === 200) {
+          const responseData = response.data;
+          console.log(responseData);
+          if (contract && contract.methods) {
+            console.log("Bhupendra Jogi");
+            const metaMaskResults = await contract.methods
+              .createTender(
+                tender.tenderName,
+                tender.contractTitle,
+                tender.description,
+                parseInt(tender.tenderNumber),
+                startTimestamp,
+                endTimestamp
+              )
+              .send({ from: account });
 
-      if (response.status === 200) {
-        const responseData = response.data;
-        console.log(responseData);
-        if (contract && contract.methods) {
-          console.log("Bhupendra Jogi");
-          const metaMaskResults = await contract.methods
-            .createTender(
-              tender.tenderName,
-              tender.contractTitle,
-              tender.description,
-              parseInt(tender.tenderNumber),
-              startTimestamp,
-              endTimestamp
-            )
-            .send({ from: account });
-
-          if (metaMaskResults.status) {
-            alert("Tender Created Successfully");
-          } else {
-            alert("Tender Not Created Successfully");
+            if (metaMaskResults.status) {
+              alert("Tender Created Successfully");
+            } else {
+              alert("Tender Not Created Successfully");
+            }
           }
+        } else {
+          alert("Task cannot be added");
         }
-      } else {
-        alert("Task cannot be added");
+      } catch (error) {
+        // Handle errors here
+        console.error("There was a problem with the axios request:", error);
+      } finally {
+        console.log("finally");
       }
-    } catch (error) {
-      // Handle errors here
-      console.error("There was a problem with the axios request:", error);
-    } finally {
-      console.log("finally");
     }
   };
 
   const GetTenders = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:5000/viewAllTenders";
+      // const url = "http://localhost:5000/viewAllTenders";
+      const url = "http://localhost:5000/getAllTenders";
 
       const response = await axios.get(url);
 
@@ -146,9 +152,8 @@ const CreateTender = () => {
   return (
     <div>
       <form className={`mx-auto ${styles.form_container}`}>
-        <div className={styles.logo_container}></div>
         <div className={styles.title_container}>
-          <p className={styles.title}>Create Tender</p>
+          <h1 className="text-3xl font-bold gha">Create Tender</h1>
           <span className={styles.subtitle}>
             Please carefully fill all the necessary information.
           </span>
@@ -292,6 +297,7 @@ const CreateTender = () => {
           onClick={createTask}
           // onClick={GetTenders}
           type="submit"
+          style={{ backgroundColor: currentColor }}
           className={`mr-auto ${styles.sign_in_btn}`}
         >
           <span>Add Tender</span>

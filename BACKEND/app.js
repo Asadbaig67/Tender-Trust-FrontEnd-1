@@ -4,7 +4,9 @@ const connect = require("./src/config/DataBaseConnection.js");
 const cors = require("cors");
 const passport = require("passport");
 const { passportLocalSetup } = require("./passport.js");
+const Tender = require('./src/models/Tender.js');
 const expressSession = require("express-session");
+const { createTender } = require("./src/utils/CreateTender/CreateTender.js");
 
 // Import your Contractor and GovOfficial models
 const Contractor = require("./src/models/Contractor.js");
@@ -71,9 +73,7 @@ app.post("/createTender", async (req, res) => {
 
     const startTimestamp = Math.floor(new Date(startDate).getTime() / 1000);
     const endTimestamp = Math.floor(new Date(endDate).getTime() / 1000);
-
-    console.log(startTimestamp);
-    console.log(endTimestamp);
+    const new_Tender = createTender(req.body);
 
     const tender = await contract.methods
       .createTender(
@@ -86,7 +86,7 @@ app.post("/createTender", async (req, res) => {
       )
       .call();
 
-    res.status(200).json({ status: 200, message: "Tender Created", tender });
+    res.status(200).json({ status: 200, message: "Tender Created", new_Tender });
   } catch (error) {
     res.status(404).json({ status: 500 });
     console.error(error);
@@ -103,6 +103,20 @@ app.get("/viewAllTenders", async (req, res) => {
     console.error(error);
   }
 });
+
+app.get("/getAllTenders", async (req, res) => {
+  try {
+
+    const tenders = await Tender.find();
+    return res.status(200).json({ tenders });
+
+  } catch (error) {
+
+    return res.status(401).json({ error });
+
+  }
+
+})
 
 // Connection to the database
 const database_url = process.env.DATABASE;

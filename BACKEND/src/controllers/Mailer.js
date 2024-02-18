@@ -1,5 +1,8 @@
 const nodemailer = require('nodemailer');
-const { Mailgen } = require('mailgen');
+// const { Mailgen } = require('mailgen');
+const Mailgen = require('mailgen');
+
+
 
 
 
@@ -25,7 +28,7 @@ const sendVerificationmail = async (email, otp, name, password) => {
             }
         });
 
-        let verificationObj = { email, name, password , otp };
+        let verificationObj = { email, name, password, otp };
         console.log(verificationObj);
         let encodedObj = encodeURIComponent(JSON.stringify(verificationObj));
         console.log(encodedObj);

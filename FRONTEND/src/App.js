@@ -22,6 +22,7 @@ import SingleTenderView from "./components/SingleTenderView";
 import AssignTender from "./components/AssignTender";
 import BidTender from "./components/BidTender";
 import DatePicker from "./components/DatePicker";
+import AllTenders from "./components/Alltenders";
 import "./App.css";
 
 import { useStateContext } from "./contexts/ContextProvider";
@@ -104,14 +105,16 @@ const App = () => {
           </div>)}
 
 
-          <div className="">
+          <div className="mt-[60px]">
             {/* <div className="mt-[50px]"> */}
             {themeSettings && < ThemeSettings />}
 
             <Routes>
-              <Route path="/contractor/alltenders" element={<Tender title={title} author={author} description={description} />} />
-              <Route path="/govofficial/alltenders" element={<Tender title={title} author={author} description={description} />} />
-              <Route path="/activetenders" element={<Tender title={title} author={author} description={description} />} />
+              {/* <Route path="/contractor/alltenders" element={<Tender title={title} author={author} description={description} />} />
+              <Route path="/govofficial/alltenders" element={<Tender title={title} author={author} description={description} />} /> */}
+              <Route path="/contractor/alltenders" element={<AllTenders />} />
+              <Route path="/govofficial/alltenders" element={<AllTenders />} />
+              <Route path="/activetenders" element={<AllTenders />} />
               <Route path="/govofficial/tender/create" element={<CreateTender />} />
               <Route path="/govofficial/tender/assign" element={<Assign_task />} />
               <Route path="/bid" element={<Bid />} />
