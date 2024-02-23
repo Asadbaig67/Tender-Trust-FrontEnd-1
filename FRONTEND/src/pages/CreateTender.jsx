@@ -71,7 +71,7 @@ const CreateTender = () => {
         description: tender.description,
        // tenderNumber: parseInt(tender.tenderNumber),
         startDate: startDate.format("YYYY-MM-DD"),
-        endDate: endDate.format("YYYY-MM-DD")
+        endDate: endDate.format("YYYY-MM-DD"),
       };
 
       const response = await axios.post(url, data);

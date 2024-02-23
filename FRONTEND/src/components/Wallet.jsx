@@ -30,7 +30,7 @@ const Wallet = () => {
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
-        const contractAddress = "0x16Fd7ec210c276428d0c330b4BC96fde2E64d715";
+        const contractAddress = "0xBf506db32180D64c9153A6bB24292d2671270203";
         const contract = new web3.eth.Contract(ABI, contractAddress);
         dispatch(
           setMetaMaskCred({
