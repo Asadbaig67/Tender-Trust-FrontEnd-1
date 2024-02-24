@@ -51,49 +51,131 @@ app.use(
 const ABI = require("./ABI.json");
 const { Web3 } = require("web3");
 const web3 = new Web3(
-  "https://eth-sepolia.g.alchemy.com/v2/ks2UXGvvtc2BEiJ5RUzKmKgcBUCCldJJ"
+  "HTTP://127.0.0.1:7545"
 );
 
 
-
-
-const contractAddress = "0x16Fd7ec210c276428d0c330b4BC96fde2E64d715";
+const contractAddress = "0xBf506db32180D64c9153A6bB24292d2671270203";
 const contract = new web3.eth.Contract(ABI, contractAddress);
 
+
+//----------------------------------------------------------------
 app.post("/createTender", async (req, res) => {
   try {
-    // const {
-    //   name,
-    //   contractTitle,
-    //   description,
-    //   startDate,
-    //   endDate,
-    // } = req.body;
+    const {
+      name,
+      contractTitle,
+      description,
+      startDate,
+      endDate,
+    } = req.body;
 
-    const name = "tenderName";
-    const contractTitle = "contractTitle";
-    const description = "description";
-    const startDate = "startDate";
-    const endDate = "endDate";
-    
+console.log(name, contractTitle, description, startDate, endDate);
 
-    const tender = await contract.methods
-      .createTender(
-        name,
-        contractTitle,
-        description,
-        startDate,
-        endDate,
-      ).call();
+web3.eth.getAccounts().then(accounts => {
+  const account = accounts[0]; 
+  contract.methods.createTender(name, contractTitle, description, startDate, endDate)
+  .send({ from: account, gas: 3000000, gasPrice: web3.utils.toWei('1', 'wei') })
+  .on('receipt', console.log)
+  .on('error', console.error);
+  
+});
+res.status(200).json({ status: 200, message: "Tender Created" });
 
-    res.status(200).json({ status: 200, message: "Tender Created" });
   } catch (error) {
-    res.status(404).json({ status: 500 });
+    res.status(500).json({ status: 500 });
+    console.error(error);
+  }
+});
+//-------------------------------------------------------------------
+
+
+app.get("/getAllTenders", async (req, res) => {
+  try {
+    
+    const tenderCount = await contract.methods.tenderCounter().call();
+    let allTenders = [];
+
+    for (let i = 0; i < tenderCount; i++) {
+        const tenders = await contract.methods.getTendersForId(i).call();
+        allTenders.push(...tenders);
+    }
+
+    res.status(200).json({ status: 200, allTenders });
+  } catch (error) {
+    res.status(500).json({ status: 500 });
     console.error(error);
   }
 });
 
-//----------------------------------------------------------------
+
+//------------------------------------------------------------------------
+
+app.post('/placeBid', async (req, res) => {
+  const { tenderId, name, companyName, contactNumber, bid, account } = req.body;
+
+  try {
+    await contract.methods.placeBid(tenderId, name, companyName, contactNumber, bid)
+      .send({ from: account, gas: 3000000, gasPrice: web3.utils.toWei('1', 'wei') })
+      .on('receipt', console.log)
+      .on('error', console.error);
+
+    res.status(200).json({ status: 200 });
+  } catch (error) {
+    res.status(500).json({ status: 500 });
+    console.error(error);
+  }
+});
+
+//----------------------------------------------------------------------------------
+
+app.get('/getContractorsForTender', async (req, res) => {
+  const tenderId = req.params.tenderId;
+
+  try {
+    const contractors = await contract.methods.getContractorsForTender(tenderId).call();
+    res.status(200).json({ status: 200, contractors });
+  } catch (error) {
+    res.status(500).json({ status: 500 });
+    console.error(error);
+  }
+});
+
+//------------------------------------------------------------------
+app.post('/assignContract', async (req, res) => {
+  const { tenderId, account } = req.body;
+
+  try {
+    await contract.methods.assignContract(tenderId)
+      .send({ from: account, gas: 3000000, gasPrice: web3.utils.toWei('1', 'wei') })
+      .on('receipt', console.log)
+      .on('error', console.error);
+
+    res.status(200).json({ status: 200 });
+  } catch (error) {
+    res.status(500).json({ status: 500 });
+    console.error(error);
+  }
+});
+
+
+
+// async function getAllTenders() {
+//   const tenderCount = await contract.methods.tenderCounter().call();
+//   let allTenders = [];
+
+//   for (let i = 0; i < tenderCount; i++) {
+//       const tenders = await contract.methods.getTendersForId(i).call();
+//       allTenders.push(...tenders);
+//   }
+
+//   return allTenders;
+// }
+
+// getAllTenders().then(console.log).catch(console.error);
+
+
+
 
 
 //---------------------------------------------------------------
@@ -119,54 +201,3 @@ app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
 
-/*
-
-//0x714225eF1F1575D0Ed17B108869413E38656B475
-//https://eth-sepolia.g.alchemy.com/v2/ks2UXGvvtc2BEiJ5RUzKmKgcBUCCldJJ
-const express = require('express')
-const ABI = require("./ABI.json");
-const {Web3}= require("web3");
-const web3 = new Web3("https://eth-sepolia.g.alchemy.com/v2/ks2UXGvvtc2BEiJ5RUzKmKgcBUCCldJJ")
-const contractAddress = "0x714225eF1F1575D0Ed17B108869413E38656B475";
-const contract = new web3.eth.Contract(ABI,contractAddress);
-//console.log(contract);
-
-const app = express();
-
-const PORT=3000;
-app.listen(PORT,()=>{
-    console.log(`Server Running At PORT ${PORT}`)
-})
-
-
-const TenderCount = async ()=>{
-    const tcount = await contract.methods.getTenderCount().call();
-    console.log("count: ",tcount);
-}
-
-TenderCount();
-
-
-
-app.get("/tendertrust/ethereum/tendercount",async(req,res)=>{
-        try{
-            
-            const tcount = await contract.methods.getTenderCount().call();
-            const num = tcount;
-            //console.log("count: ",tcount);
-            
-             const count = Number(num);
-            // const taskObj={
-            //     numId,name,date
-            // }
-            res.status(200).json({status:200,"No of tenders: ":count})
-        }catch(error){
-            res.status(404).json({status:500})
-            console.error(error)
-        }
-    })
-    
-
-
-
-  */
