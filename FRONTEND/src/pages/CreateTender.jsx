@@ -44,7 +44,6 @@ const CreateTender = () => {
     tenderName: "",
     contractTitle: "",
     description: "",
-    tenderNumber: 1,
   });
 
   const handleChange = (e) => {
@@ -91,17 +90,18 @@ const CreateTender = () => {
                 tender.tenderName,
                 tender.contractTitle,
                 tender.description,
-                parseInt(tender.tenderNumber),
-                startTimestamp,
-                endTimestamp
+                // parseInt(tender.tenderNumber),
+                "gfghh",
+                "kjhgfdf"
               )
               .send({ from: account });
 
-            if (metaMaskResults.status) {
-              alert("Tender Created Successfully");
-            } else {
-              alert("Tender Not Created Successfully");
-            }
+            console.log(metaMaskResults);
+            // if (metaMaskResults.status) {
+            //   alert("Tender Created Successfully");
+            // } else {
+            //   alert("Tender Not Created Successfully");
+            // }
           }
         } else {
           alert("Task cannot be added");

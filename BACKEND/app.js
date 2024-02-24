@@ -49,7 +49,7 @@ app.use(
   })
 );
 
-// Web3
+// Web3   https://eth-sepolia.g.alchemy.com/v2/ks2UXGvvtc2BEiJ5RUzKmKgcBUCCldJJ
 const ABI = require("./ABI.json");
 const { Web3 } = require("web3");
 const web3 = new Web3(
@@ -57,52 +57,51 @@ const web3 = new Web3(
 );
 
 
-const contractAddress = "0x3c472e85D44FD0C87d496e511B4330C02c4AeA77";
+
+
+const contractAddress = "0x16Fd7ec210c276428d0c330b4BC96fde2E64d715";
 const contract = new web3.eth.Contract(ABI, contractAddress);
 
 app.post("/createTender", async (req, res) => {
   try {
-    const {
-      name,
-      contractTitle,
-      description,
-      startDate,
-      endDate,
-      tenderNumber,
-    } = req.body;
+    // const {
+    //   name,
+    //   contractTitle,
+    //   description,
+    //   startDate,
+    //   endDate,
+    // } = req.body;
 
-    const startTimestamp = Math.floor(new Date(startDate).getTime() / 1000);
-    const endTimestamp = Math.floor(new Date(endDate).getTime() / 1000);
-    const new_Tender = createTender(req.body);
+    const name = "tenderName";
+    const contractTitle = "contractTitle";
+    const description = "description";
+    const startDate = "startDate";
+    const endDate = "endDate";
+    
 
     const tender = await contract.methods
       .createTender(
         name,
         contractTitle,
         description,
-        startTimestamp,
-        endTimestamp,
-        tenderNumber
-      )
-      .call();
+        startDate,
+        endDate,
+      ).call();
 
-    res.status(200).json({ status: 200, message: "Tender Created", new_Tender });
+    res.status(200).json({ status: 200, message: "Tender Created" });
   } catch (error) {
     res.status(404).json({ status: 500 });
     console.error(error);
   }
 });
 
-app.get("/viewAllTenders", async (req, res) => {
-  try {
-    const viewAllTenders = await contract.methods.getAllTenders().call();
-    console.log(viewAllTenders);
-    res.status(200).json({ status: 200 });
-  } catch (error) {
-    res.status(404).json({ status: 500 });
-    console.error(error);
-  }
-});
+//----------------------------------------------------------------
+
+
+//---------------------------------------------------------------
+// 
+
+
 
 app.get("/getAllTenders", async (req, res) => {
   try {
