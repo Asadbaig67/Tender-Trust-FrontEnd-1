@@ -121,7 +121,16 @@ const CreateTender = () => {
       // const url = "http://localhost:5000/viewAllTenders";
       const url = "http://localhost:5000/getAllTenders";
 
-      const response = await axios.get(url);
+      const data = {
+        name: tender.tenderName,
+        contractTitle: tender.contractTitle,
+        description: tender.description,
+       // tenderNumber: parseInt(tender.tenderNumber),
+        startDate: startDate.format("YYYY-MM-DD"),
+        endDate: endDate.format("YYYY-MM-DD"),
+      };
+
+      const response = await axios.post(url, data);
 
       if (response.status === 200) {
         const responseData = response.data;
