@@ -2,8 +2,6 @@ const Emailverification = require('../models/Emailverification.js');
 const User = require('../models/Contractor.js');
 const { SendEmail } = require('../utils/Email/SendEmail.js');
 
-
-
 // Verify Email From The Link Fucntion
 const Emailverify = async (req, res) => {
   // Get the email and otp from the request query
@@ -45,7 +43,7 @@ const Emailverify = async (req, res) => {
   await SendEmail(data);
   // Return Success Message
   
-  return res.redirect("http://localhost:3000/");
+  return res.redirect("http://localhost:3000/login");
 
 };
 

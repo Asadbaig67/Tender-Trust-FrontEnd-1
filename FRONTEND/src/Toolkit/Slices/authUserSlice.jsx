@@ -24,7 +24,7 @@ export const signUpUser = createAsyncThunk(
         }
       );
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         return response.data; // You can adjust this based on your API response format
       } else {
         throw new Error("Request failed with status: " + response.status);
@@ -69,6 +69,9 @@ export const authUserSlice = createSlice({
     setUser: (state, action) => {
       state.authUser = action.payload;
     },
+    setStatus: (state, action) => {
+      state.status = action.payload;
+    },
   },
   setLoginLoading: (state, action) => {
     state.loginLoading = action.payload;
@@ -76,6 +79,7 @@ export const authUserSlice = createSlice({
   setRegisterLoading: (state, action) => {
     state.registerLoading = action.payload;
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
@@ -102,7 +106,7 @@ export const authUserSlice = createSlice({
       .addCase(signUpUser.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.registerLoading = false;
-        state.authUser = action.payload;
+        // state.authUser = null;
         state.error = null;
       })
       .addCase(signUpUser.rejected, (state, action) => {
@@ -114,7 +118,7 @@ export const authUserSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setUser, setLoginLoading, setRegisterLoading } =
+export const { setUser, setLoginLoading, setRegisterLoading, setStatus } =
   authUserSlice.actions;
 
 export default authUserSlice.reducer;

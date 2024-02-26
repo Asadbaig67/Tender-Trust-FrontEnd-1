@@ -13,7 +13,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { setpublic } from "../Toolkit/Slices/booleanSlice";
-import { setLoginLoading } from "../Toolkit/Slices/authUserSlice";
 
 const Login = () => {
   const { currentColor } = useStateContext();
